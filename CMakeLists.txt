@@ -1,17 +1,11 @@
-cmake_minimum_required(VERSION 3.10)
-project(TowerDefenseProj)
+cmake_minimum_required(VERSION 3.14)
+project(TowerDefense)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-include_directories("C:/SFML/include")
+add_subdirectory(TowerDefenseLib)
 
-add_executable(TowerDefenseProj main.cpp)
+add_executable(TowerDefenseExecutable main.cpp)
 
-target_link_libraries(TowerDefenseProj
-        "C:/SFML/lib/libsfml-system.a"
-        "C:/SFML/lib/libsfml-window.a"
-        "C:/SFML/lib/libsfml-graphics.a"
-        "C:/SFML/lib/libsfml-audio.a"
-        "C:/SFML/lib/libsfml-network.a"
-)
-
+target_link_libraries(TowerDefenseExecutable PRIVATE TowerDefenseLib)

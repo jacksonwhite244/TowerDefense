@@ -1,5 +1,7 @@
 # ninja log v6
-53	2590	7684480852016440	CMakeFiles/TowerDefenseProj.dir/main.cpp.obj	98cb8aa6e042ee9
-2591	2967	7684480877389496	TowerDefenseProj.exe	ae9e1ab262d9602d
 7	2153	7684484648166148	CMakeFiles/TowerDefenseProj.dir/main.cpp.obj	98cb8aa6e042ee9
 2155	2342	7684484669642702	TowerDefenseProj.exe	ae9e1ab262d9602d
+9	2081	7686290484349622	TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Game.cpp.obj	bd947547ee127f11
+17	2130	7686290484411016	CMakeFiles/TowerDefenseExecutable.dir/main.cpp.obj	ea7a4ff7b5f8cc08
+2087	3747	7686290505111058	TowerDefenseLib/libTowerDefenseLib.a	b60f0dc830fda11e
+3747	4830	7686290521710687	TowerDefenseExecutable.exe	b6089c2fe63b47da
