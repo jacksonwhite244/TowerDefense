@@ -3,20 +3,12 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode({1200, 800}), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+    Game towerDefenseGame;;
 
-    while (window.isOpen())
+    while (towerDefenseGame.GameRunning())
     {
-        while (const std::optional event = window.pollEvent())
-        {
-            if (event->is<sf::Event::Closed>())
-                window.close();
-        }
+        towerDefenseGame.Update();
 
-        window.clear();
-        window.draw(shape);
-        window.display();
+        towerDefenseGame.Render();
     }
 }

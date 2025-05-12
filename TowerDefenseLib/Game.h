@@ -13,13 +13,25 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
+#include <optional>
+#include "NormalPirate.h"
 
 /**
  * Game class that runs / controls the game
  */
 class Game {
 private:
-    void MakeWindow();
+    /// the window that portrays the game
+    sf::RenderWindow* mWindow;
+
+    /// the size of the screen
+    sf::VideoMode mVideoMode;
+
+    void InitializeWindow();
+
+    void InitializeVariables();
+
+    NormalPirate mNormalPirate;
 
 public:
     /// constructor
@@ -32,6 +44,9 @@ public:
 
     void Render();
 
+    bool GameRunning() const;
+
+    void CheckEvents();
 };
 
 

@@ -5,7 +5,12 @@ set(SFML_LIB_DIR "C:/SFML/lib")
 
 set(SOURCE_FILES
         Game.cpp
-        Game.h)
+        Game.h
+        Character.cpp
+        Character.h
+        NormalPirate.cpp
+        NormalPirate.h)
+
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE_FILES})
 
@@ -17,5 +22,4 @@ target_link_libraries(${PROJECT_NAME}
         "${SFML_LIB_DIR}/libsfml-window.a"
         "${SFML_LIB_DIR}/libsfml-graphics.a"
         "${SFML_LIB_DIR}/libsfml-audio.a"
-        "${SFML_LIB_DIR}/libsfml-network.a"
-)
+        "${SFML_LIB_DIR}/libsfml-network.a")
