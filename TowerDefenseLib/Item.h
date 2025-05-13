@@ -20,6 +20,7 @@
  */
 class Item {
 private:
+
     sf::Vector2f mPosition;
 
     /// the image of the menu
@@ -28,10 +29,13 @@ private:
     /// the texture of the menu
     sf::Texture* mTexture = nullptr;
 public:
+
     Item() = delete;
     Item(std::string imageName, sf::Vector2f scale);
 
     sf::Sprite GetSprite() { return *mSprite; }
+
+    virtual ~Item();
 };
 
 
