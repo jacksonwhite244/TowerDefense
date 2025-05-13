@@ -14,6 +14,9 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 #include <optional>
+#include <memory>
+
+#include "Map.h"
 #include "NormalPirate.h"
 
 /**
@@ -32,6 +35,9 @@ private:
     void InitializeVariables();
 
     NormalPirate mNormalPirate;
+
+    /// The map the game is on
+    std::shared_ptr<Map> mMap;
 
 public:
     /// constructor

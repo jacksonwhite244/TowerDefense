@@ -8,10 +8,14 @@
 NormalPirate::NormalPirate() : Character(sf::Vector2f(0, 0), 2, 20), mTexture()
 {
     mTexture = new sf::Texture;
-    bool x = mTexture->loadFromFile("images/normal_pirate.png", false, sf::IntRect({100, 150}, {102, 153}));
-    if (mTexture->loadFromFile("images/normal_pirate.png"))
+    if (mTexture->loadFromFile("images/sniper_monkey.png"))
     {
         mSprite = new sf::Sprite(*mTexture);
+        sf::Vector2 position(101, 0);
+        sf::Vector2 size(101, 124);
+        sf::IntRect rect1(position, size);
+        mSprite->setTextureRect(rect1);
+
     }
 
 }

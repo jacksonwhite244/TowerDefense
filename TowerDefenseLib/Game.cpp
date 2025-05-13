@@ -10,7 +10,6 @@
  */
 Game::Game()
 {
-
     InitializeVariables();
     InitializeWindow();
 }
@@ -39,6 +38,7 @@ void Game::Render()
     mWindow->clear(sf::Color::Transparent);
 
     /// draw game
+    mWindow->draw(mMap->GetSprite());
     mWindow->draw(mNormalPirate.GetSprite());
     mNormalPirate.Draw(mWindow);
 
@@ -51,6 +51,7 @@ void Game::Render()
 void Game::InitializeVariables()
 {
     mWindow = nullptr;
+    mMap = std::make_shared<Map>("images/map1.png");
 }
 
 /**
@@ -58,7 +59,7 @@ void Game::InitializeVariables()
  */
 void Game::InitializeWindow()
 {
-    mVideoMode.size = {1200, 800};
+    mVideoMode.size = {1250, 800};
     mWindow = new sf::RenderWindow(mVideoMode, "Tower Defense!", sf::Style::Titlebar | sf::Style::Close);
 
 }

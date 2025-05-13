@@ -9,7 +9,13 @@ set(SOURCE_FILES
         Character.cpp
         Character.h
         NormalPirate.cpp
-        NormalPirate.h)
+        NormalPirate.h
+        CharacterMenu.cpp
+        CharacterMenu.h
+        Map.cpp
+        Map.h
+        Item.cpp
+        Item.h)
 
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE_FILES})

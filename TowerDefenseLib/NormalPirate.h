@@ -24,9 +24,10 @@ private:
 public:
     NormalPirate();
 
-    sf::Sprite GetSprite() { return *mSprite; };
 
     void Draw(sf::RenderWindow* window) { window->draw(*mSprite); };
+
+    sf::Sprite GetSprite() { return *mSprite; };
 
 };
 
