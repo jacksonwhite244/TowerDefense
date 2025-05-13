@@ -32,7 +32,6 @@ private:
 
     void InitializeWindow();
 
-
     void InitializeVariables();
 
     NormalPirate mNormalPirate;
