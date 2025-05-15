@@ -35,7 +35,7 @@ public:
 
     sf::Sprite GetSprite() { return *mSprite; }
 
-    virtual ~Item();
+    //virtual ~Item();
 };
 
 
