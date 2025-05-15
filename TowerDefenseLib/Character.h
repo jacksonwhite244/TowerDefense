@@ -26,6 +26,16 @@ private:
     int mFireRate;
 
     double mRange;
+
+    /// the image of the normal pirate
+    sf::Sprite* mSprite = nullptr;
+
+    /// the texture of the normal pirate
+    sf::Texture* mTexture = nullptr;
+
+    int mPictureFrame = 1;
+
+    int mTimesCalled = 0;
 public:
     /**
      * Default constructor deleted
@@ -39,7 +49,7 @@ public:
      * @param attackRate the attack rate of the character
      * @param range the range of the character
      */
-    Character(sf::Vector2f pos, int attackRate, double range) { mPosition = pos; mFireRate = attackRate; mRange = range; };
+    Character(sf::Vector2f pos, int attackRate, double range);
 
     /**
      * Set the position of the character
@@ -77,7 +87,8 @@ public:
      */
     int GetFireRate() { return mFireRate; };
 
-
+    void Draw(sf::RenderWindow* window);
+    void Idle();
 };
 
 

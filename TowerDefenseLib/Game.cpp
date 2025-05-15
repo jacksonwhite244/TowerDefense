@@ -38,9 +38,9 @@ void Game::Render()
     mWindow->clear(sf::Color::Transparent);
 
     /// draw game
-    mWindow->draw(mMap->GetSprite());
-    mWindow->draw(mNormalPirate.GetSprite());
-    mNormalPirate.Draw(mWindow);
+    mMap->Draw(mWindow);
+
+    mCharacter1->Draw(mWindow);
 
     mWindow->display();
 }
@@ -51,7 +51,8 @@ void Game::Render()
 void Game::InitializeVariables()
 {
     mWindow = nullptr;
-    mMap = std::make_shared<Map>("images/map1.png");
+    mMap = std::make_shared<Map>();
+    mCharacter1 = std::make_shared<Character>(sf::Vector2f(0, 0), 2,20);
 }
 
 /**
@@ -59,8 +60,8 @@ void Game::InitializeVariables()
  */
 void Game::InitializeWindow()
 {
-    mVideoMode.size = {1250, 800};
-    mWindow = new sf::RenderWindow(mVideoMode, "Tower Defense!", sf::Style::Titlebar | sf::Style::Close);
+    mVideoMode.size = {1536, 896};
+    mWindow = new sf::RenderWindow(mVideoMode, "Fight!", sf::Style::Titlebar | sf::Style::Close);
 
 }
 

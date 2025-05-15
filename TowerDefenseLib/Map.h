@@ -21,12 +21,37 @@
 /**
  * The map the player chose
  */
-class Map : public Item {
+class Map {
 private:
-public:
-    Map() = delete;
+    /// the image of the sky
+    sf::Sprite* mSpriteSky = nullptr;
 
-    Map(std::string imageName);
+    /// the texture sky
+    sf::Texture* mTextureSky = nullptr;
+
+    /// the image ground
+    sf::Sprite* mSpriteGround = nullptr;
+
+    /// the texture ground
+    sf::Texture* mTextureGround = nullptr;
+
+    /// the image trees (left side)
+    sf::Sprite* mSpriteTree = nullptr;
+
+    /// the texture of trees (left side)
+    sf::Texture* mTextureTree = nullptr;
+
+    /// the image of the small trees (right)
+    sf::Sprite* mSpriteTreeSmall = nullptr;
+
+    /// the texture of the msmall trees (right)
+    sf::Texture* mTextureTreeSmall = nullptr;
+
+
+public:
+    Map();
+
+    void Draw(sf::RenderWindow* window);
 
 };
 

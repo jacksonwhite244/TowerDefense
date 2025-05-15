@@ -36,6 +36,8 @@ private:
 
     NormalPirate mNormalPirate;
 
+    std::shared_ptr<Character> mCharacter1;
+
     /// The map the game is on
     std::shared_ptr<Map> mMap;
 
