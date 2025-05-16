@@ -33,9 +33,22 @@ private:
     /// the texture of the normal pirate
     sf::Texture* mTexture = nullptr;
 
+    /// the frame of the gif we are on
     int mPictureFrame = 1;
 
+    /// the amount of times Draw was called
     int mTimesCalled = 0;
+
+    /// All of the possible actions the character can do
+    enum class Action {Idle, Punching, Kicking, Knocked, Walking, Jumping};
+
+    /// the current action the character is doing
+    Action mAction;
+
+    void Animate();
+
+
+
 public:
     /**
      * Default constructor deleted
@@ -88,7 +101,13 @@ public:
     int GetFireRate() { return mFireRate; };
 
     void Draw(sf::RenderWindow* window);
-    void Idle();
+
+    void MoveRight();
+    void MoveLeft();
+    void Jump();
+
+    void SetIdle();
+    void AdjustJump();
 };
 
 

@@ -84,6 +84,27 @@ void Game::CheckEvents()
                 mWindow->close();
         }
     }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Right))
+    {
+        mCharacter1->MoveRight();
+    }
+
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left))
+    {
+        mCharacter1->MoveLeft();
+    }
+
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Up))
+    {
+        mCharacter1->Jump();
+    }
+
+    else
+    {
+        mCharacter1->SetIdle();
+    }
+
 }
 
 
