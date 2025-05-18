@@ -15,6 +15,7 @@ Character::Character()
 {
     mTexture = new sf::Texture;
     mAction = Action::Idle;
+    mFacingDirection = 1;
     if (mTexture->loadFromFile("images/cat_character.png"))
     {
         mSprite = new sf::Sprite(*mTexture);
@@ -22,7 +23,7 @@ Character::Character()
         sf::Vector2 size(64, 64);
         sf::IntRect rect1(position, size);
         mSprite->setTextureRect(rect1);
-        mSprite->setScale(sf::Vector2f(5, 5));
+        mSprite->setScale(sf::Vector2f(5 * mFacingDirection, 5));
         mSprite->setPosition(sf::Vector2f(0, 515));
     }
 }
@@ -69,6 +70,21 @@ void Character::Animate()
             sf::IntRect rect1(position, size);
             mSprite->setTextureRect(rect1);
         }
+
+        else if (mAction == Action::Punching)
+        {
+            mPictureFrame++;
+            if (mPictureFrame == 6)
+            {
+                mPictureFrame = 0;
+                mTimesCalled = 0;
+                mAction = Action::Idle;
+                return;
+            }
+            position = sf::Vector2(mPictureFrame * 64, 960);
+            sf::IntRect rect1(position, size);
+            mSprite->setTextureRect(rect1);
+        }
         mTimesCalled = 0;
     }
 }
@@ -81,18 +97,22 @@ void Character::Animate()
  */
 void Character::MoveRight()
 {
-    if (mAction != Action::Walking && mAction != Action::Jumping)
+    if (mAction != Action::Walking && mAction != Action::Jumping && mAction != Action::Punching)
     {
-        //mPictureFrame = 0;
+        mPictureFrame = 0;
         mTimesCalled = 0;
         mAction = Action::Walking;
     }
+    mFacingDirection = 1;
     sf::Vector2 position = mSprite->getPosition();
     if (position.x > 1280)
     {
         return;
     }
+    mSprite->setScale(sf::Vector2f(5 * mFacingDirection, 5));
 
+    sf::Vector2f origin = sf::Vector2f(0, 0);
+    mSprite->setOrigin(origin);
     mSprite->setPosition(position + sf::Vector2f(0.3, 0));
 }
 
@@ -104,17 +124,24 @@ void Character::MoveRight()
  */
 void Character::MoveLeft()
 {
-    if (mAction != Action::Walking && mAction != Action::Jumping)
+    if (mAction != Action::Walking && mAction != Action::Jumping && mAction != Action::Punching)
     {
         mPictureFrame = 0;
         mTimesCalled = 0;
         mAction = Action::Walking;
     }
+    mFacingDirection = -1;
     sf::Vector2 position = mSprite->getPosition();
     if (position.x <= -128)
     {
         return;
     }
+
+    mSprite->setScale(sf::Vector2f(5 * mFacingDirection, 5));
+
+    sf::FloatRect bounds = mSprite->getLocalBounds();
+    sf::Vector2f origin = sf::Vector2f(bounds.size.x, 0);
+    mSprite->setOrigin(origin);
     mSprite->setPosition(position - sf::Vector2f(0.3, 0));
 }
 
@@ -124,7 +151,7 @@ void Character::MoveLeft()
  */
 void Character::Jump()
 {
-    if (mAction == Action::Jumping)
+    if (mAction == Action::Jumping || mAction == Action::Punching)
     {
         return;
     }
@@ -138,7 +165,7 @@ void Character::Jump()
  */
 void Character::SetIdle()
 {
-    if (mAction == Action::Idle || mAction == Action::Jumping)
+    if (mAction == Action::Idle || mAction == Action::Jumping || mAction == Action::Punching)
     {
         return;
     }
@@ -175,5 +202,15 @@ void Character::AdjustJump()
             }
         }
     }
+}
 
+void Character::Punch()
+{
+    if (mAction == Action::Punching || mAction == Action::Jumping)
+    {
+        return;
+    }
+    mPictureFrame = 0;
+    mTimesCalled = 0;
+    mAction = Action::Punching;
 }

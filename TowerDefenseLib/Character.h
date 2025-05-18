@@ -41,6 +41,9 @@ private:
 
     void Animate();
 
+    /// the direction our character is facing. 1 = right, -1 = left
+    int mFacingDirection;
+
 
 
 public:
@@ -55,6 +58,7 @@ public:
 
     void SetIdle();
     void AdjustJump();
+    void Punch();
 };
 
 

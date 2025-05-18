@@ -84,26 +84,61 @@ void Game::CheckEvents()
                 mWindow->close();
         }
     }
-    int eventsMet = 0;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Right))
-    {
-        mCharacter1->MoveRight();
-        eventsMet++;
-    }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left))
-    {
-        mCharacter1->MoveLeft();
-        eventsMet++;
-    }
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Up))
+    /// moving right and jumping at the same time
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Up))
     {
         mCharacter1->Jump();
-        eventsMet++;
+        mCharacter1->MoveRight();
     }
 
-    if (eventsMet == 0)
+    /// move left and jump
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Up))
+    {
+        mCharacter1->Jump();
+        mCharacter1->MoveLeft();
+    }
+
+    /// move right and punch
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Numpad0))
+    {
+        mCharacter1->Punch();
+        mCharacter1->MoveRight();
+    }
+
+    /// move left and punch
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Numpad0))
+    {
+        mCharacter1->Punch();
+        mCharacter1->MoveLeft();
+    }
+
+    /// move right
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Right))
+    {
+        mCharacter1->MoveRight();
+    }
+
+    /// move left
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left))
+    {
+        mCharacter1->MoveLeft();
+    }
+
+    /// jump
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Up))
+    {
+        mCharacter1->Jump();
+    }
+
+    /// punch
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Numpad0))
+    {
+        mCharacter1->Punch();
+    }
+
+    /// nothing
+    else
     {
         mCharacter1->SetIdle();
     }
