@@ -20,12 +20,6 @@
  */
 class Character {
 private:
-    /// the position of the character
-    sf::Vector2f mPosition;
-
-    int mFireRate;
-
-    double mRange;
 
     /// the image of the normal pirate
     sf::Sprite* mSprite = nullptr;
@@ -50,55 +44,8 @@ private:
 
 
 public:
-    /**
-     * Default constructor deleted
-     */
-    Character() = delete;
 
-    /**
-     * Custom constructor for characters
-     *
-     * @param pos the position of the character
-     * @param attackRate the attack rate of the character
-     * @param range the range of the character
-     */
-    Character(sf::Vector2f pos, int attackRate, double range);
-
-    /**
-     * Set the position of the character
-     * @param position the position we are setting the character to
-     */
-    void SetPosition(sf::Vector2f position) { mPosition = position; };
-
-    /**
-     * Get the position of the character
-     * @return The position of the character
-     */
-    sf::Vector2f GetPosition() { return mPosition; };
-
-    /**
-     * Set the range the character can attack
-     * @param range the range we are setting the character to
-     */
-    void SetRange(double range) { mRange = range; };
-
-    /**
-     * Set the attack rate of the character
-     * @param rate the rate at which the character will attack
-     */
-    void SetFireRate(int rate) { mFireRate = rate; };
-
-    /**
-     * Get the range the character can attack
-     * @return the range of the character
-     */
-    double GetRange() { return mRange; };
-
-    /**
-     * Get the attack rate of the character
-     * @return the attack rate of the character
-     */
-    int GetFireRate() { return mFireRate; };
+    Character();
 
     void Draw(sf::RenderWindow* window);
 

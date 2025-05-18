@@ -5,7 +5,13 @@
  
 #include "Character.h"
 
-Character::Character(sf::Vector2f pos, int attackRate, double range) : mPosition(pos), mFireRate(attackRate), mRange(range)
+/**
+ * Custom Constructor for the character
+ * @param pos the position of the character
+ * @param attackRate
+ * @param range
+ */
+Character::Character()
 {
     mTexture = new sf::Texture;
     mAction = Action::Idle;
@@ -17,7 +23,7 @@ Character::Character(sf::Vector2f pos, int attackRate, double range) : mPosition
         sf::IntRect rect1(position, size);
         mSprite->setTextureRect(rect1);
         mSprite->setScale(sf::Vector2f(5, 5));
-        mSprite->setPosition(sf::Vector2f(0, 500));
+        mSprite->setPosition(sf::Vector2f(0, 515));
     }
 }
 
@@ -27,9 +33,15 @@ void Character::Draw(sf::RenderWindow* window)
     window->draw(*mSprite);
 }
 
+/**
+ * Animate the character.
+ *
+ * Every 120 times we draw, the characters gif animation will change to make it look like the character is alive
+ */
 void Character::Animate()
 {
     mTimesCalled++;
+    AdjustJump();
     if (mTimesCalled == 120)
     {
         sf::Vector2 position(0, 0);
@@ -56,16 +68,22 @@ void Character::Animate()
             position = sf::Vector2(mPictureFrame * 64, 128);
             sf::IntRect rect1(position, size);
             mSprite->setTextureRect(rect1);
-            AdjustJump();
         }
         mTimesCalled = 0;
     }
 }
 
+/**
+ * Move the character Right
+ *
+ * Set the character to walking and move the character over a couple of pixels
+ * if the character is currently jumping, move the character but don't switch the action
+ */
 void Character::MoveRight()
 {
-    if (mAction != Action::Walking)
+    if (mAction != Action::Walking && mAction != Action::Jumping)
     {
+        //mPictureFrame = 0;
         mTimesCalled = 0;
         mAction = Action::Walking;
     }
@@ -78,10 +96,17 @@ void Character::MoveRight()
     mSprite->setPosition(position + sf::Vector2f(0.3, 0));
 }
 
+/**
+ * Move the character Left
+ *
+ * Set the character to walking and move the character over a couple of pixels
+ * if the character is currently jumping, move the character but don't switch the action
+ */
 void Character::MoveLeft()
 {
-    if (mAction != Action::Walking)
+    if (mAction != Action::Walking && mAction != Action::Jumping)
     {
+        mPictureFrame = 0;
         mTimesCalled = 0;
         mAction = Action::Walking;
     }
@@ -93,26 +118,39 @@ void Character::MoveLeft()
     mSprite->setPosition(position - sf::Vector2f(0.3, 0));
 }
 
+/**
+ * Set the characters action to Jumping.
+ * If the character is already jumping, don't do anything
+ */
 void Character::Jump()
 {
     if (mAction == Action::Jumping)
     {
         return;
     }
+    mPictureFrame = 0;
     mTimesCalled = 0;
     mAction = Action::Jumping;
 }
 
+/**
+ * Set the characters action to Idle
+ */
 void Character::SetIdle()
 {
     if (mAction == Action::Idle || mAction == Action::Jumping)
     {
         return;
     }
+    mPictureFrame = 0;
     mTimesCalled = 0;
     mAction = Action::Idle;
 }
 
+/**
+ * This gets called each time we draw the character.
+ * If the character is Jumping, we need to move the character up, based on the frame of the character
+ */
 void Character::AdjustJump()
 {
     if (mAction == Action::Jumping)
@@ -122,16 +160,17 @@ void Character::AdjustJump()
             if (mPictureFrame == 3)
             {
                 auto position = mSprite->getPosition();
-                mSprite->setPosition(position - sf::Vector2f(0, 70));
+                mSprite->setPosition(position - sf::Vector2f(0, 1));
             }
             if (mPictureFrame == 4)
             {
                 auto position = mSprite->getPosition();
-                mSprite->setPosition(position + sf::Vector2f(0, 70));
+                mSprite->setPosition(position + sf::Vector2f(0, 1));
             }
             if (mPictureFrame == 7)
             {
                 mAction = Action::Idle;
+                mPictureFrame = 0;
                 mTimesCalled = 0;
             }
         }

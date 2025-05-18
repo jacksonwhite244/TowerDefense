@@ -52,7 +52,7 @@ void Game::InitializeVariables()
 {
     mWindow = nullptr;
     mMap = std::make_shared<Map>();
-    mCharacter1 = std::make_shared<Character>(sf::Vector2f(0, 0), 2,20);
+    mCharacter1 = std::make_shared<Character>();
 }
 
 /**
@@ -84,23 +84,26 @@ void Game::CheckEvents()
                 mWindow->close();
         }
     }
-
+    int eventsMet = 0;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Right))
     {
         mCharacter1->MoveRight();
+        eventsMet++;
     }
 
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left))
     {
         mCharacter1->MoveLeft();
+        eventsMet++;
     }
 
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Up))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Up))
     {
         mCharacter1->Jump();
+        eventsMet++;
     }
 
-    else
+    if (eventsMet == 0)
     {
         mCharacter1->SetIdle();
     }

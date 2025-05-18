@@ -5,7 +5,7 @@
  
 #include "NormalPirate.h"
 
-NormalPirate::NormalPirate() : Character(sf::Vector2f(0, 0), 2, 20), mTexture()
+NormalPirate::NormalPirate() : Character(), mTexture()
 {
     mTexture = new sf::Texture;
     if (mTexture->loadFromFile("images/sniper_monkey.png"))
