@@ -48,8 +48,7 @@ private:
 
 
 public:
-
-    Character(std::string fileName);
+    Character(std::string fileName, int playerNum);
 
     void Draw(sf::RenderWindow* window);
 
@@ -57,7 +56,7 @@ public:
     void MoveLeft();
     void Jump();
     void SetIdleFromMenu();
-    void AdjustJump();
+    virtual void AdjustJump() = 0;
     void Punch();
     virtual bool ReadyToAnimate();
 
@@ -79,6 +78,9 @@ public:
     void SetTimesCalled(int timesCalled) { mTimesCalled = timesCalled; }
 
     void SetIdle() { mAction = Action::Idle; };
+
+    sf::Vector2f GetPosition() { return mSprite->getPosition(); }
+    void SetPosition(sf::Vector2f position) { mSprite->setPosition(position); }
 
 
 };

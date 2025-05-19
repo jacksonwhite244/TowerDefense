@@ -14,6 +14,8 @@ set(SOURCE_FILES
         Map.h
         Cat.cpp
         Cat.h
+        Monster.cpp
+        Monster.h
 )
 
 

@@ -146,6 +146,13 @@ build TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Cat.cpp.obj: CXX_COMPILER__
   OBJECT_DIR = TowerDefenseLib\CMakeFiles\TowerDefenseLib.dir
   OBJECT_FILE_DIR = TowerDefenseLib\CMakeFiles\TowerDefenseLib.dir
 
+build TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Monster.cpp.obj: CXX_COMPILER__TowerDefenseLib_unscanned_Debug C$:/Users/jacks/TowerDefenseProj/TowerDefenseLib/Monster.cpp || cmake_object_order_depends_target_TowerDefenseLib
+  DEP_FILE = TowerDefenseLib\CMakeFiles\TowerDefenseLib.dir\Monster.cpp.obj.d
+  FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
+  INCLUDES = -IC:/SFML/include -IC:/Users/jacks/TowerDefenseProj/TowerDefenseLib
+  OBJECT_DIR = TowerDefenseLib\CMakeFiles\TowerDefenseLib.dir
+  OBJECT_FILE_DIR = TowerDefenseLib\CMakeFiles\TowerDefenseLib.dir
+
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target TowerDefenseLib
@@ -154,7 +161,7 @@ build TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Cat.cpp.obj: CXX_COMPILER__
 #############################################
 # Link the static library TowerDefenseLib\libTowerDefenseLib.a
 
-build TowerDefenseLib/libTowerDefenseLib.a: CXX_STATIC_LIBRARY_LINKER__TowerDefenseLib_Debug TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Game.cpp.obj TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Character.cpp.obj TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/CharacterMenu.cpp.obj TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Map.cpp.obj TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Cat.cpp.obj
+build TowerDefenseLib/libTowerDefenseLib.a: CXX_STATIC_LIBRARY_LINKER__TowerDefenseLib_Debug TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Game.cpp.obj TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Character.cpp.obj TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/CharacterMenu.cpp.obj TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Map.cpp.obj TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Cat.cpp.obj TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Monster.cpp.obj
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = TowerDefenseLib\CMakeFiles\TowerDefenseLib.dir
   POST_BUILD = cd .

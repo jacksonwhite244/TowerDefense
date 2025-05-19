@@ -19,8 +19,11 @@ class Cat : public Character {
 private:
 
 public:
-    Cat();
+    Cat() = delete;
+
+    Cat(int playerNum);
     void Animate();
+    void AdjustJump();
 };
 
 

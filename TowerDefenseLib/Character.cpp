@@ -11,11 +11,22 @@
  * @param attackRate
  * @param range
  */
-Character::Character(std::string fileName)
+Character::Character(std::string fileName, int playerNum)
 {
+    int playerFirstLocation;
     mTexture = new sf::Texture;
     mAction = Action::Idle;
-    mFacingDirection = 1;
+    if (playerNum == 1)
+    {
+        mFacingDirection = 1;
+        playerFirstLocation = 0;
+    }
+    else
+    {
+        mFacingDirection = -1;
+        playerFirstLocation = 1280;
+    }
+
     if (mTexture->loadFromFile(fileName))
     {
         mSprite = new sf::Sprite(*mTexture);
@@ -24,7 +35,7 @@ Character::Character(std::string fileName)
         sf::IntRect rect1(position, size);
         mSprite->setTextureRect(rect1);
         mSprite->setScale(sf::Vector2f(5 * mFacingDirection, 5));
-        mSprite->setPosition(sf::Vector2f(0, 515));
+        mSprite->setPosition(sf::Vector2f(playerFirstLocation, 515));
     }
 }
 
@@ -107,7 +118,7 @@ void Character::MoveRight()
     }
     mFacingDirection = 1;
     sf::Vector2 position = mSprite->getPosition();
-    if (position.x > 1280)
+    if (position.x > 1200)
     {
         return;
     }
@@ -180,6 +191,7 @@ void Character::SetIdleFromMenu()
  * This gets called each time we draw the character.
  * If the character is Jumping, we need to move the character up, based on the frame of the character
  */
+/**
 void Character::AdjustJump()
 {
     if (mAction == Action::Jumping)
@@ -205,7 +217,7 @@ void Character::AdjustJump()
         }
     }
 }
-
+*/
 void Character::Punch()
 {
     if (mAction == Action::Punching || mAction == Action::Jumping)

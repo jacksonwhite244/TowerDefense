@@ -1,21 +1,21 @@
 /**
- * @file Cat.cpp
- * @author jacks
+ * @file Monster.cpp
+ * @author Jackson White
  */
  
-#include "Cat.h"
+#include "Monster.h"
 
-Cat::Cat(int playerNum) : Character("images/cat_character.png", playerNum)
+Monster::Monster(int playerNum) : Character("images/cute_monster_character.png", playerNum)
 {
 
 }
 
 /**
- * Animate the cat character
+ * Animate the character.
  *
  * Every 120 times we draw, the characters gif animation will change to make it look like the character is alive
  */
-void Cat::Animate()
+void Monster::Animate()
 {
     if (ReadyToAnimate())
     {
@@ -33,7 +33,7 @@ void Cat::Animate()
         }
         else if (IsWalking())
         {
-            SetPictureFrame((pictureFrame + 1) % 8);
+            SetPictureFrame((pictureFrame + 1) % 5);
             position = sf::Vector2(pictureFrame * 64, 64);
             sf::IntRect rect1(position, size);
             SetRectangleTexture(rect1);
@@ -42,7 +42,7 @@ void Cat::Animate()
         else if (IsJumping())
         {
             SetPictureFrame((pictureFrame + 1) % 8);
-            position = sf::Vector2(pictureFrame * 64, 128);
+            position = sf::Vector2(pictureFrame * 64, 320);
             sf::IntRect rect1(position, size);
             SetRectangleTexture(rect1);
         }
@@ -57,7 +57,7 @@ void Cat::Animate()
                 SetIdle();
                 return;
             }
-            position = sf::Vector2(pictureFrame * 64, 960);
+            position = sf::Vector2(pictureFrame * 64, 128);
             sf::IntRect rect1(position, size);
             SetRectangleTexture(rect1);
         }
@@ -65,10 +65,7 @@ void Cat::Animate()
     }
 }
 
-/**
- * Adjust the Jump based on the cats sprite sheet
- */
-void Cat::AdjustJump()
+void Monster::AdjustJump()
 {
     if (IsJumping())
     {
@@ -76,15 +73,14 @@ void Cat::AdjustJump()
         if (pictureFrame < 8)
         {
             auto position = GetPosition();
-            if (pictureFrame == 3)
+            if (pictureFrame == 5)
             {
                 SetPosition(position - sf::Vector2f(0, 1));
             }
-            if (pictureFrame == 4)
+            if (pictureFrame == 6)
             {
                 SetPosition(position + sf::Vector2f(0, 1));
             }
-
             if (pictureFrame == 7)
             {
                 SetIdle();
@@ -92,6 +88,5 @@ void Cat::AdjustJump()
                 SetTimesCalled(0);
             }
         }
-
     }
 }

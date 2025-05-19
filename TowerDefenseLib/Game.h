@@ -18,6 +18,7 @@
 
 #include "Map.h"
 #include "Cat.h"
+#include "Monster.h"
 
 /**
  * Game class that runs / controls the game
@@ -35,6 +36,8 @@ private:
     void InitializeVariables();
 
     std::shared_ptr<Cat> mCharacter1;
+
+    std::shared_ptr<Monster> mCharacter2;
 
     /// The map the game is on
     std::shared_ptr<Map> mMap;

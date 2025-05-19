@@ -42,6 +42,8 @@ void Game::Render()
 
     mCharacter1->Draw(mWindow);
 
+    mCharacter2->Draw(mWindow);
+
     mWindow->display();
 }
 
@@ -52,7 +54,8 @@ void Game::InitializeVariables()
 {
     mWindow = nullptr;
     mMap = std::make_shared<Map>();
-    mCharacter1 = std::make_shared<Cat>();
+    mCharacter1 = std::make_shared<Cat>(1);
+    mCharacter2 = std::make_shared<Monster>(2);
 }
 
 /**
@@ -85,54 +88,117 @@ void Game::CheckEvents()
         }
     }
 
-    /// moving right and jumping at the same time
+    /// moving right and jumping at the same time (Character Left)
+    /// <----------------------------------------------------------------------------------------------->
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Up))
+    {
+        mCharacter2->Jump();
+        mCharacter2->MoveRight();
+    }
+
+    /// move left and jump
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Up))
+    {
+        mCharacter2->Jump();
+        mCharacter2->MoveLeft();
+    }
+
+    /// move right and punch
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Numpad0))
+    {
+        mCharacter2->Punch();
+        mCharacter2->MoveRight();
+    }
+
+    /// move left and punch
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Numpad0))
+    {
+        mCharacter2->Punch();
+        mCharacter2->MoveLeft();
+    }
+
+    /// move right
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Right))
+    {
+        mCharacter2->MoveRight();
+    }
+
+    /// move left
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left))
+    {
+        mCharacter2->MoveLeft();
+    }
+
+    /// jump
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Up))
+    {
+        mCharacter2->Jump();
+    }
+
+    /// punch
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Numpad0))
+    {
+        mCharacter2->Punch();
+    }
+
+    /// nothing
+    else
+    {
+        mCharacter2->SetIdleFromMenu();
+    }
+
+
+    /// moving right and jumping at the same time (Character Right)
+    /// <----------------------------------------------------------------------------------------------->
+
+    /// moving right and jumping at the same time
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::D) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::W))
     {
         mCharacter1->Jump();
         mCharacter1->MoveRight();
     }
 
     /// move left and jump
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Up))
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::A) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::W))
     {
         mCharacter1->Jump();
         mCharacter1->MoveLeft();
     }
 
     /// move right and punch
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Numpad0))
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::D) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Space))
     {
         mCharacter1->Punch();
         mCharacter1->MoveRight();
     }
 
     /// move left and punch
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Numpad0))
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::A) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Space))
     {
         mCharacter1->Punch();
         mCharacter1->MoveLeft();
     }
 
     /// move right
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Right))
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::D))
     {
         mCharacter1->MoveRight();
     }
 
     /// move left
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left))
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::A))
     {
         mCharacter1->MoveLeft();
     }
 
     /// jump
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Up))
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::W))
     {
         mCharacter1->Jump();
     }
 
     /// punch
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Numpad0))
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Space))
     {
         mCharacter1->Punch();
     }
@@ -142,7 +208,6 @@ void Game::CheckEvents()
     {
         mCharacter1->SetIdleFromMenu();
     }
-
 }
 
 
