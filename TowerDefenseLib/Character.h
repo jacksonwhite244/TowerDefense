@@ -39,7 +39,8 @@ private:
     /// the current action the character is doing
     Action mAction;
 
-    void Animate();
+    /// pure virtual animation function
+    virtual void Animate() = 0;
 
     /// the direction our character is facing. 1 = right, -1 = left
     int mFacingDirection;
@@ -48,17 +49,38 @@ private:
 
 public:
 
-    Character();
+    Character(std::string fileName);
 
     void Draw(sf::RenderWindow* window);
 
     void MoveRight();
     void MoveLeft();
     void Jump();
-
-    void SetIdle();
+    void SetIdleFromMenu();
     void AdjustJump();
     void Punch();
+    virtual bool ReadyToAnimate();
+
+    /**
+     * This sets the rectangle in the sprite sheet of the exact frame of the character we want
+     * @param rect the rectangle space we are selecting to be shown
+     */
+    void SetRectangleTexture(sf::IntRect rect) { mSprite->setTextureRect(rect); }
+
+    bool IsIdle() { return mAction == Action::Idle; }
+    bool IsPunching() { return mAction == Action::Punching; }
+    bool IsKicking() { return mAction == Action::Kicking; }
+    bool IsKnocked() { return mAction == Action::Knocked; }
+    bool IsWalking() { return mAction == Action::Walking; }
+    bool IsJumping() { return mAction == Action::Jumping; }
+    int GetPictureFrame() { return mPictureFrame; }
+    int GetTimesCalled() { return mTimesCalled; }
+    void SetPictureFrame(int frame) { mPictureFrame = frame; }
+    void SetTimesCalled(int timesCalled) { mTimesCalled = timesCalled; }
+
+    void SetIdle() { mAction = Action::Idle; };
+
+
 };
 
 

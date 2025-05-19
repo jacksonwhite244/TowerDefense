@@ -15,8 +15,6 @@
 #include <SFML/Network.hpp>
 #include <optional>
 
-#include "Item.h"
-
 
 /**
  * The map the player chose

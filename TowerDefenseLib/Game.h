@@ -17,7 +17,7 @@
 #include <memory>
 
 #include "Map.h"
-#include "NormalPirate.h"
+#include "Cat.h"
 
 /**
  * Game class that runs / controls the game
@@ -34,9 +34,7 @@ private:
 
     void InitializeVariables();
 
-    NormalPirate mNormalPirate;
-
-    std::shared_ptr<Character> mCharacter1;
+    std::shared_ptr<Cat> mCharacter1;
 
     /// The map the game is on
     std::shared_ptr<Map> mMap;

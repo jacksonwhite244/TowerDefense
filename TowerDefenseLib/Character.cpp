@@ -11,12 +11,12 @@
  * @param attackRate
  * @param range
  */
-Character::Character()
+Character::Character(std::string fileName)
 {
     mTexture = new sf::Texture;
     mAction = Action::Idle;
     mFacingDirection = 1;
-    if (mTexture->loadFromFile("images/cat_character.png"))
+    if (mTexture->loadFromFile(fileName))
     {
         mSprite = new sf::Sprite(*mTexture);
         sf::Vector2 position(0, 0);
@@ -39,6 +39,7 @@ void Character::Draw(sf::RenderWindow* window)
  *
  * Every 120 times we draw, the characters gif animation will change to make it look like the character is alive
  */
+/**
 void Character::Animate()
 {
     mTimesCalled++;
@@ -88,6 +89,7 @@ void Character::Animate()
         mTimesCalled = 0;
     }
 }
+*/
 
 /**
  * Move the character Right
@@ -163,7 +165,7 @@ void Character::Jump()
 /**
  * Set the characters action to Idle
  */
-void Character::SetIdle()
+void Character::SetIdleFromMenu()
 {
     if (mAction == Action::Idle || mAction == Action::Jumping || mAction == Action::Punching)
     {
@@ -213,4 +215,19 @@ void Character::Punch()
     mPictureFrame = 0;
     mTimesCalled = 0;
     mAction = Action::Punching;
+}
+
+/**
+ * Check if the character is ready to animate
+ * @return yes if the character is ready, no if not
+ */
+bool Character::ReadyToAnimate()
+{
+    mTimesCalled++;
+    AdjustJump();
+    if (mTimesCalled == 120)
+    {
+        return true;
+    }
+    return false;
 }

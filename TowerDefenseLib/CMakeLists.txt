@@ -8,14 +8,13 @@ set(SOURCE_FILES
         Game.h
         Character.cpp
         Character.h
-        NormalPirate.cpp
-        NormalPirate.h
         CharacterMenu.cpp
         CharacterMenu.h
         Map.cpp
         Map.h
-        Item.cpp
-        Item.h)
+        Cat.cpp
+        Cat.h
+)
 
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE_FILES})

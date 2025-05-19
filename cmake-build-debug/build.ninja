@@ -125,13 +125,6 @@ build TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Character.cpp.obj: CXX_COMP
   OBJECT_DIR = TowerDefenseLib\CMakeFiles\TowerDefenseLib.dir
   OBJECT_FILE_DIR = TowerDefenseLib\CMakeFiles\TowerDefenseLib.dir
 
-build TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/NormalPirate.cpp.obj: CXX_COMPILER__TowerDefenseLib_unscanned_Debug C$:/Users/jacks/TowerDefenseProj/TowerDefenseLib/NormalPirate.cpp || cmake_object_order_depends_target_TowerDefenseLib
-  DEP_FILE = TowerDefenseLib\CMakeFiles\TowerDefenseLib.dir\NormalPirate.cpp.obj.d
-  FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -IC:/SFML/include -IC:/Users/jacks/TowerDefenseProj/TowerDefenseLib
-  OBJECT_DIR = TowerDefenseLib\CMakeFiles\TowerDefenseLib.dir
-  OBJECT_FILE_DIR = TowerDefenseLib\CMakeFiles\TowerDefenseLib.dir
-
 build TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/CharacterMenu.cpp.obj: CXX_COMPILER__TowerDefenseLib_unscanned_Debug C$:/Users/jacks/TowerDefenseProj/TowerDefenseLib/CharacterMenu.cpp || cmake_object_order_depends_target_TowerDefenseLib
   DEP_FILE = TowerDefenseLib\CMakeFiles\TowerDefenseLib.dir\CharacterMenu.cpp.obj.d
   FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
@@ -146,8 +139,8 @@ build TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Map.cpp.obj: CXX_COMPILER__
   OBJECT_DIR = TowerDefenseLib\CMakeFiles\TowerDefenseLib.dir
   OBJECT_FILE_DIR = TowerDefenseLib\CMakeFiles\TowerDefenseLib.dir
 
-build TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Item.cpp.obj: CXX_COMPILER__TowerDefenseLib_unscanned_Debug C$:/Users/jacks/TowerDefenseProj/TowerDefenseLib/Item.cpp || cmake_object_order_depends_target_TowerDefenseLib
-  DEP_FILE = TowerDefenseLib\CMakeFiles\TowerDefenseLib.dir\Item.cpp.obj.d
+build TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Cat.cpp.obj: CXX_COMPILER__TowerDefenseLib_unscanned_Debug C$:/Users/jacks/TowerDefenseProj/TowerDefenseLib/Cat.cpp || cmake_object_order_depends_target_TowerDefenseLib
+  DEP_FILE = TowerDefenseLib\CMakeFiles\TowerDefenseLib.dir\Cat.cpp.obj.d
   FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
   INCLUDES = -IC:/SFML/include -IC:/Users/jacks/TowerDefenseProj/TowerDefenseLib
   OBJECT_DIR = TowerDefenseLib\CMakeFiles\TowerDefenseLib.dir
@@ -161,7 +154,7 @@ build TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Item.cpp.obj: CXX_COMPILER_
 #############################################
 # Link the static library TowerDefenseLib\libTowerDefenseLib.a
 
-build TowerDefenseLib/libTowerDefenseLib.a: CXX_STATIC_LIBRARY_LINKER__TowerDefenseLib_Debug TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Game.cpp.obj TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Character.cpp.obj TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/NormalPirate.cpp.obj TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/CharacterMenu.cpp.obj TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Map.cpp.obj TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Item.cpp.obj
+build TowerDefenseLib/libTowerDefenseLib.a: CXX_STATIC_LIBRARY_LINKER__TowerDefenseLib_Debug TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Game.cpp.obj TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Character.cpp.obj TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/CharacterMenu.cpp.obj TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Map.cpp.obj TowerDefenseLib/CMakeFiles/TowerDefenseLib.dir/Cat.cpp.obj
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = TowerDefenseLib\CMakeFiles\TowerDefenseLib.dir
   POST_BUILD = cd .

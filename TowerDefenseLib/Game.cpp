@@ -52,7 +52,7 @@ void Game::InitializeVariables()
 {
     mWindow = nullptr;
     mMap = std::make_shared<Map>();
-    mCharacter1 = std::make_shared<Character>();
+    mCharacter1 = std::make_shared<Cat>();
 }
 
 /**
@@ -140,7 +140,7 @@ void Game::CheckEvents()
     /// nothing
     else
     {
-        mCharacter1->SetIdle();
+        mCharacter1->SetIdleFromMenu();
     }
 
 }
