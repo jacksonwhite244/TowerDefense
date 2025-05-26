@@ -16,6 +16,8 @@ set(SOURCE_FILES
         Cat.h
         Monster.cpp
         Monster.h
+        MainMenu.cpp
+        MainMenu.h
 )
 
 

@@ -19,6 +19,7 @@
 #include "Map.h"
 #include "Cat.h"
 #include "Monster.h"
+#include "MainMenu.h"
 
 /**
  * Game class that runs / controls the game
@@ -41,6 +42,9 @@ private:
 
     /// The map the game is on
     std::shared_ptr<Map> mMap;
+
+    /// the main menu
+    MainMenu mMainMenu;
 
 public:
     /// constructor

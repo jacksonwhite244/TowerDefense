@@ -38,7 +38,14 @@ void Game::Render()
     mWindow->clear(sf::Color::Transparent);
 
     /// draw game
+
     mMap->Draw(mWindow);
+    if (mMainMenu.IsActive())
+    {
+        mMainMenu.Render(mWindow);
+        mWindow->display();
+        return;
+    }
 
     mCharacter1->Draw(mWindow);
 
@@ -65,7 +72,6 @@ void Game::InitializeWindow()
 {
     mVideoMode.size = {1536, 896};
     mWindow = new sf::RenderWindow(mVideoMode, "Fight!", sf::Style::Titlebar | sf::Style::Close);
-
 }
 
 bool Game::GameRunning() const
@@ -87,9 +93,19 @@ void Game::CheckEvents()
                 mWindow->close();
         }
     }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Enter) && mMainMenu.IsActive())
+    {
+        mMainMenu.SetInactive();
+    }
+
 
     /// moving right and jumping at the same time (Character Left)
     /// <----------------------------------------------------------------------------------------------->
+    /// if the menu is active, none of the characters will move
+    if (mMainMenu.IsActive())
+    {
+        return;
+    }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Up))
     {
         mCharacter2->Jump();
