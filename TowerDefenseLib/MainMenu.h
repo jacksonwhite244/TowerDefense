@@ -21,6 +21,12 @@ class MainMenu {
 private:
     /// is the menu active or not?
     bool mIsShowing = true;
+
+    /// the first player character they selected
+    int mFirstPlayerCharacter = 0;
+
+    /// the second player character they selected
+    int mSecondPlayerCharacter = 0;
 public:
     MainMenu();
     void Render(sf::RenderWindow* window);
@@ -40,6 +46,18 @@ public:
      * set the menu to active (game not playing)
      */
     void SetActive() { mIsShowing = true; }
+
+    void AddFirstPlayerCharacter() { mFirstPlayerCharacter++; }
+
+    void AddSecondPlayerCharacter() { mSecondPlayerCharacter++; }
+
+    void SubtractFirstPlayerCharacter() { mFirstPlayerCharacter--; }
+
+    void SubtractSecondPlayerCharacter() { mSecondPlayerCharacter--; }
+
+    int GetFirstPlayerCharacter() const { return mFirstPlayerCharacter; }
+
+    int GetSecondPlayerCharacter() const { return mSecondPlayerCharacter; }
 };
 
 

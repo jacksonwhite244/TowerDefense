@@ -36,15 +36,27 @@ private:
 
     void InitializeVariables();
 
-    std::shared_ptr<Cat> mCharacter1;
+    std::shared_ptr<Character> mCharacter1;
 
-    std::shared_ptr<Monster> mCharacter2;
+    std::shared_ptr<Character> mCharacter2;
 
     /// The map the game is on
     std::shared_ptr<Map> mMap;
 
     /// the main menu
     MainMenu mMainMenu;
+
+    /// character 1 switch time counter
+    int mChar1SwitchTime = 0;
+
+    /// is the character1 currently switching
+    bool mChar1Switching = false;
+
+    /// character2 switch time counter
+    int mChar2SwitchTime = 0;
+
+    /// is the character 2 currently switching
+    bool mChar2Switching = false;
 
 public:
     /// constructor
@@ -60,6 +72,7 @@ public:
     bool GameRunning() const;
 
     void CheckEvents();
+    void CheckSwitches();
 };
 
 

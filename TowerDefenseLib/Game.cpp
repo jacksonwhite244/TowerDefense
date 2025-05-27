@@ -43,8 +43,6 @@ void Game::Render()
     if (mMainMenu.IsActive())
     {
         mMainMenu.Render(mWindow);
-        mWindow->display();
-        return;
     }
 
     mCharacter1->Draw(mWindow);
@@ -93,9 +91,85 @@ void Game::CheckEvents()
                 mWindow->close();
         }
     }
+    CheckSwitches();
+    /// player has started the game
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Enter) && mMainMenu.IsActive())
     {
         mMainMenu.SetInactive();
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::W) && mMainMenu.IsActive())
+    {
+        if (mChar1SwitchTime == 0)
+        {
+            mChar1Switching = true;
+            mMainMenu.AddFirstPlayerCharacter();
+
+            int char1 = mMainMenu.GetFirstPlayerCharacter();
+            if (char1 % 2 == 0)
+            {
+                mCharacter1 = std::make_shared<Cat>(1);
+            }
+            else
+            {
+                mCharacter1 = std::make_shared<Monster>(1);
+            }
+        }
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::S) && mMainMenu.IsActive())
+    {
+        if (mChar1SwitchTime == 0)
+        {
+            mChar1Switching = true;
+            mMainMenu.SubtractFirstPlayerCharacter();
+
+            int char1 = mMainMenu.GetFirstPlayerCharacter();
+            if (char1 % 2 == 0)
+            {
+                mCharacter1 = std::make_shared<Cat>(1);
+            }
+            else
+            {
+                mCharacter1 = std::make_shared<Monster>(1);
+            }
+        }
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Up) && mMainMenu.IsActive())
+    {
+        if (mChar2SwitchTime == 0)
+        {
+            mChar2Switching = true;
+            mMainMenu.AddSecondPlayerCharacter();
+            int char1 = mMainMenu.GetSecondPlayerCharacter();
+            if (char1 % 2 == 0)
+            {
+                mCharacter2 = std::make_shared<Cat>(2);
+            }
+            else
+            {
+                mCharacter2 = std::make_shared<Monster>(2);
+            }
+        }
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Down) && mMainMenu.IsActive())
+    {
+        if (mChar2SwitchTime == 0)
+        {
+            mChar2Switching = true;
+            mMainMenu.SubtractSecondPlayerCharacter();
+            int char1 = mMainMenu.GetSecondPlayerCharacter();
+            if (char1 % 2 == 0)
+            {
+                mCharacter2 = std::make_shared<Cat>(2);
+            }
+            else
+            {
+                mCharacter2 = std::make_shared<Monster>(2);
+            }
+        }
     }
 
 
@@ -226,4 +300,24 @@ void Game::CheckEvents()
     }
 }
 
-
+void Game::CheckSwitches()
+{
+    if (mChar1Switching)
+    {
+        mChar1SwitchTime ++;
+        if (mChar1SwitchTime > 60)
+        {
+            mChar1Switching = false;
+            mChar1SwitchTime = 0;
+        }
+    }
+    if (mChar2Switching)
+    {
+        mChar2SwitchTime ++;
+        if (mChar2SwitchTime > 60)
+        {
+            mChar2Switching = false;
+            mChar2SwitchTime = 0;
+        }
+    }
+}

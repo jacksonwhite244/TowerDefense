@@ -6,10 +6,9 @@
 #include "Character.h"
 
 /**
- * Custom Constructor for the character
- * @param pos the position of the character
- * @param attackRate
- * @param range
+ * Custom constructor for character
+ * @param fileName the image pathname
+ * @param playerNum playernumber (1 or 2)
  */
 Character::Character(std::string fileName, int playerNum)
 {
@@ -24,7 +23,7 @@ Character::Character(std::string fileName, int playerNum)
     else
     {
         mFacingDirection = -1;
-        playerFirstLocation = 1280;
+        playerFirstLocation = 1200;
     }
 
     if (mTexture->loadFromFile(fileName))
@@ -39,68 +38,15 @@ Character::Character(std::string fileName, int playerNum)
     }
 }
 
+/**
+ * Draw to the window
+ * @param window the window we are drawing on
+ */
 void Character::Draw(sf::RenderWindow* window)
 {
     Animate();
     window->draw(*mSprite);
 }
-
-/**
- * Animate the character.
- *
- * Every 120 times we draw, the characters gif animation will change to make it look like the character is alive
- */
-/**
-void Character::Animate()
-{
-    mTimesCalled++;
-    AdjustJump();
-    if (mTimesCalled == 120)
-    {
-        sf::Vector2 position(0, 0);
-        sf::Vector2 size(64, 64);
-
-        if (mAction == Action::Idle)
-        {
-            mPictureFrame = (mPictureFrame + 1) % 4;
-            position = sf::Vector2(mPictureFrame * 64, 0);
-            sf::IntRect rect1(position, size);
-            mSprite->setTextureRect(rect1);
-        }
-        else if (mAction == Action::Walking)
-        {
-            mPictureFrame = (mPictureFrame + 1) % 8;
-            position = sf::Vector2(mPictureFrame * 64, 64);
-            sf::IntRect rect1(position, size);
-            mSprite->setTextureRect(rect1);
-        }
-
-        else if (mAction == Action::Jumping)
-        {
-            mPictureFrame = (mPictureFrame + 1) % 8;
-            position = sf::Vector2(mPictureFrame * 64, 128);
-            sf::IntRect rect1(position, size);
-            mSprite->setTextureRect(rect1);
-        }
-
-        else if (mAction == Action::Punching)
-        {
-            mPictureFrame++;
-            if (mPictureFrame == 6)
-            {
-                mPictureFrame = 0;
-                mTimesCalled = 0;
-                mAction = Action::Idle;
-                return;
-            }
-            position = sf::Vector2(mPictureFrame * 64, 960);
-            sf::IntRect rect1(position, size);
-            mSprite->setTextureRect(rect1);
-        }
-        mTimesCalled = 0;
-    }
-}
-*/
 
 /**
  * Move the character Right
@@ -118,6 +64,7 @@ void Character::MoveRight()
     }
     mFacingDirection = 1;
     sf::Vector2 position = mSprite->getPosition();
+    auto check = position.x;
     if (position.x > 1200)
     {
         return;
@@ -187,37 +134,6 @@ void Character::SetIdleFromMenu()
     mAction = Action::Idle;
 }
 
-/**
- * This gets called each time we draw the character.
- * If the character is Jumping, we need to move the character up, based on the frame of the character
- */
-/**
-void Character::AdjustJump()
-{
-    if (mAction == Action::Jumping)
-    {
-        if (mPictureFrame < 8)
-        {
-            if (mPictureFrame == 3)
-            {
-                auto position = mSprite->getPosition();
-                mSprite->setPosition(position - sf::Vector2f(0, 1));
-            }
-            if (mPictureFrame == 4)
-            {
-                auto position = mSprite->getPosition();
-                mSprite->setPosition(position + sf::Vector2f(0, 1));
-            }
-            if (mPictureFrame == 7)
-            {
-                mAction = Action::Idle;
-                mPictureFrame = 0;
-                mTimesCalled = 0;
-            }
-        }
-    }
-}
-*/
 void Character::Punch()
 {
     if (mAction == Action::Punching || mAction == Action::Jumping)
