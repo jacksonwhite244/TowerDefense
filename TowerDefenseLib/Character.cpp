@@ -33,6 +33,12 @@ Character::Character(std::string fileName, int playerNum)
         sf::Vector2 size(64, 64);
         sf::IntRect rect1(position, size);
         mSprite->setTextureRect(rect1);
+        if (playerNum != 1)
+        {
+            sf::FloatRect bounds = mSprite->getLocalBounds();
+            sf::Vector2f origin = sf::Vector2f(bounds.size.x, 0);
+            mSprite->setOrigin(origin);
+        }
         mSprite->setScale(sf::Vector2f(5 * mFacingDirection, 5));
         mSprite->setPosition(sf::Vector2f(playerFirstLocation, 515));
     }

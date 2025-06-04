@@ -305,7 +305,7 @@ void Game::CheckSwitches()
     if (mChar1Switching)
     {
         mChar1SwitchTime ++;
-        if (mChar1SwitchTime > 60)
+        if (mChar1SwitchTime > 160)
         {
             mChar1Switching = false;
             mChar1SwitchTime = 0;
@@ -314,7 +314,7 @@ void Game::CheckSwitches()
     if (mChar2Switching)
     {
         mChar2SwitchTime ++;
-        if (mChar2SwitchTime > 60)
+        if (mChar2SwitchTime > 160)
         {
             mChar2Switching = false;
             mChar2SwitchTime = 0;

@@ -27,9 +27,14 @@ private:
 
     /// the second player character they selected
     int mSecondPlayerCharacter = 0;
+
+    std::vector<std::shared_ptr<sf::Text>> mTexts;
+
+    std::vector<std::shared_ptr<sf::Font>> mFonts;
 public:
     MainMenu();
     void Render(sf::RenderWindow* window);
+    void CreateText();
 
     /**
      * Is the menu currently being shown?
