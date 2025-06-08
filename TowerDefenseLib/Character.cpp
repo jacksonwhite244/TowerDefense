@@ -4,30 +4,34 @@
  */
  
 #include "Character.h"
+#include "Game.h"
 using namespace std;
 /**
  * Custom constructor for character
  * @param fileName the image pathname
  * @param playerNum playernumber (1 or 2)
  */
-Character::Character(std::string fileName, int playerNum)
+Character::Character(std::string fileName, int playerNum, Game * game) : mGame(game)
 {
     int playerFirstLocation;
     mTexture = new sf::Texture;
     mAction = Action::Idle;
+    /// player 1 starts on left side of screen
     if (playerNum == 1)
     {
         mPlayerNum = playerNum;
         mFacingDirection = 1;
-        playerFirstLocation = 0;
+        playerFirstLocation = 160;
     }
+    /// player 2 starts on right side of screen
     else
     {
         mPlayerNum = 2;
         mFacingDirection = -1;
-        playerFirstLocation = 1200;
+        playerFirstLocation = 1360;
     }
 
+    /// lead the texture in
     if (mTexture->loadFromFile(fileName))
     {
         mSprite = new sf::Sprite(*mTexture);
@@ -35,12 +39,13 @@ Character::Character(std::string fileName, int playerNum)
         sf::Vector2 size(64, 64);
         sf::IntRect rect1(position, size);
         mSprite->setTextureRect(rect1);
-        if (playerNum != 1)
-        {
-            sf::FloatRect bounds = mSprite->getLocalBounds();
-            sf::Vector2f origin = sf::Vector2f(bounds.size.x, 0);
-            mSprite->setOrigin(origin);
-        }
+
+        /// set the origin to the center x axis
+        sf::FloatRect bounds = mSprite->getLocalBounds();
+        sf::Vector2f origin = sf::Vector2f(bounds.size.x / 2, 0);
+        mSprite->setOrigin(origin);
+
+        /// scale the sprite by 5x
         mSprite->setScale(sf::Vector2f(5 * mFacingDirection, 5));
         mSprite->setPosition(sf::Vector2f(playerFirstLocation, 515));
 
@@ -79,15 +84,12 @@ void Character::MoveRight()
     }
     mFacingDirection = 1;
     sf::Vector2 position = mSprite->getPosition();
-    auto check = position.x;
-    if (position.x > 1200)
+    if (position.x > 1536)
     {
         return;
     }
     mSprite->setScale(sf::Vector2f(5 * mFacingDirection, 5));
 
-    sf::Vector2f origin = sf::Vector2f(0, 0);
-    mSprite->setOrigin(origin);
     mSprite->setPosition(position + sf::Vector2f(0.3, 0));
 }
 
@@ -107,7 +109,7 @@ void Character::MoveLeft()
     }
     mFacingDirection = -1;
     sf::Vector2 position = mSprite->getPosition();
-    if (position.x <= -128)
+    if (position.x <= 0)
     {
         return;
     }
@@ -115,8 +117,6 @@ void Character::MoveLeft()
     mSprite->setScale(sf::Vector2f(5 * mFacingDirection, 5));
 
     sf::FloatRect bounds = mSprite->getLocalBounds();
-    sf::Vector2f origin = sf::Vector2f(bounds.size.x, 0);
-    mSprite->setOrigin(origin);
     mSprite->setPosition(position - sf::Vector2f(0.3, 0));
 }
 
@@ -219,15 +219,37 @@ void Character::TakeDamage()
     mTexts.front()->setString(std::to_string(mHealth));
 }
 
-/**
- * Get the characters box that it will take damage from the other one
- * @return the box in which the character will take damage
- */
-sf::FloatRect Character::GetHurtbox() const
-{
-    return mSprite->getGlobalBounds();  // start simple: the whole sprite is the hurtbox
-}
-
 sf::FloatRect Character::GetHitBox() const
 {
+    sf::Vector2f pos = mSprite->getPosition();
+    float width = 50;  // width of the punch range
+    float height = 50;
+    float offsetX;
+    if (mFacingDirection == 1)
+    {
+        offsetX = 40;
+    }
+    else
+    {
+        offsetX = -80;
+    }
+
+    return sf::FloatRect(sf::Vector2(pos.x + offsetX, pos.y+ 160), sf::Vector2(width, height));
+
+}
+
+void Character::DrawHitboxes(sf::RenderWindow* window) {
+    sf::FloatRect hb = GetHitBox();
+    sf::RectangleShape hitRect(sf::Vector2f(hb.size.x, hb.size.y));
+    hitRect.setPosition(hb.position);
+    hitRect.setFillColor(sf::Color(255, 0, 0, 100)); // red translucent
+    window->draw(hitRect);
+}
+
+void Character::DrawHurtBoxes(sf::RenderWindow* window) {
+    sf::FloatRect hb = GetHurtbox();
+    sf::RectangleShape hitRect(sf::Vector2f(hb.size.x, hb.size.y));
+    hitRect.setPosition(hb.position);
+    hitRect.setFillColor(sf::Color(0, 255, 0, 100)); // green translucent
+    window->draw(hitRect);
 }

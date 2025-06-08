@@ -4,7 +4,9 @@
  */
  
 #include "Game.h"
+#include "Character.h"
 
+using namespace std;
 /**
  * Base constructor for the game, Initializes variables and creates the window
  */
@@ -59,8 +61,8 @@ void Game::InitializeVariables()
 {
     mWindow = nullptr;
     mMap = std::make_shared<Map>();
-    mCharacter1 = std::make_shared<Cat>(1);
-    mCharacter2 = std::make_shared<Monster>(2);
+    mCharacter1 = std::make_shared<Cat>(1, this);
+    mCharacter2 = std::make_shared<Monster>(2, this);
 }
 
 /**
@@ -108,11 +110,11 @@ void Game::CheckEvents()
             int char1 = mMainMenu.GetFirstPlayerCharacter();
             if (char1 % 2 == 0)
             {
-                mCharacter1 = std::make_shared<Cat>(1);
+                mCharacter1 = std::make_shared<Cat>(1, this);
             }
             else
             {
-                mCharacter1 = std::make_shared<Monster>(1);
+                mCharacter1 = std::make_shared<Monster>(1, this);
             }
         }
     }
@@ -127,11 +129,11 @@ void Game::CheckEvents()
             int char1 = mMainMenu.GetFirstPlayerCharacter();
             if (char1 % 2 == 0)
             {
-                mCharacter1 = std::make_shared<Cat>(1);
+                mCharacter1 = std::make_shared<Cat>(1, this);
             }
             else
             {
-                mCharacter1 = std::make_shared<Monster>(1);
+                mCharacter1 = std::make_shared<Monster>(1, this);
             }
         }
     }
@@ -145,11 +147,11 @@ void Game::CheckEvents()
             int char1 = mMainMenu.GetSecondPlayerCharacter();
             if (char1 % 2 == 0)
             {
-                mCharacter2 = std::make_shared<Cat>(2);
+                mCharacter2 = std::make_shared<Cat>(2, this);
             }
             else
             {
-                mCharacter2 = std::make_shared<Monster>(2);
+                mCharacter2 = std::make_shared<Monster>(2, this);
             }
         }
     }
@@ -163,11 +165,11 @@ void Game::CheckEvents()
             int char1 = mMainMenu.GetSecondPlayerCharacter();
             if (char1 % 2 == 0)
             {
-                mCharacter2 = std::make_shared<Cat>(2);
+                mCharacter2 = std::make_shared<Cat>(2, this);
             }
             else
             {
-                mCharacter2 = std::make_shared<Monster>(2);
+                mCharacter2 = std::make_shared<Monster>(2, this);
             }
         }
     }
@@ -320,4 +322,13 @@ void Game::CheckSwitches()
             mChar2SwitchTime = 0;
         }
     }
+}
+
+shared_ptr<Character> Game::GetOpponent(Character* character)
+{
+    if (character ==  mCharacter1.get())
+    {
+        return mCharacter2;
+    }
+    return mCharacter1;
 }

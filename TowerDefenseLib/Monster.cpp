@@ -4,8 +4,10 @@
  */
  
 #include "Monster.h"
+#include "Game.h"
+using namespace std;
 
-Monster::Monster(int playerNum) : Character("images/cute_monster_character.png", playerNum)
+Monster::Monster(int playerNum, Game* game) : Character("images/cute_monster_character.png", playerNum, game)
 {
 
 }
@@ -55,6 +57,14 @@ void Monster::Animate()
                 SetPictureFrame(0);
                 SetTimesCalled(0);
                 SetIdle();
+
+                Game * game = GetGame();
+                shared_ptr<Character> otherOpponent = game->GetOpponent(this);
+                if (GetHitBox().findIntersection(otherOpponent->GetHurtbox()))
+                {
+                    otherOpponent->TakeDamage();
+                }
+
                 return;
             }
             position = sf::Vector2(pictureFrame * 64, 128);
@@ -89,4 +99,20 @@ void Monster::AdjustJump()
             }
         }
     }
+}
+
+sf::FloatRect Monster::GetHurtbox()
+{
+    sf::Vector2f pos = GetPosition();
+    float width = 120;  // width of the punch range
+    float height = 120;
+
+
+    if (GetFacingDirection() == 1)
+    {
+        return sf::FloatRect(sf::Vector2(pos.x - GetSprite()->getLocalBounds().size.x / 2 - 20, pos.y + 128), sf::Vector2(width, height));
+
+    }
+    return sf::FloatRect(sf::Vector2(pos.x - GetSprite()->getLocalBounds().size.x / 2 - 15, pos.y + 128), sf::Vector2(width, height));
+
 }

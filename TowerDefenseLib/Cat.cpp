@@ -4,8 +4,10 @@
  */
  
 #include "Cat.h"
+using namespace std;
+class Game;
 
-Cat::Cat(int playerNum) : Character("images/cat_character.png", playerNum)
+Cat::Cat(int playerNum, Game * game) : Character("images/cat_character.png", playerNum, game)
 {
 
 }
@@ -55,6 +57,14 @@ void Cat::Animate()
                 SetPictureFrame(0);
                 SetTimesCalled(0);
                 SetIdle();
+
+                Game * game = GetGame();
+                shared_ptr<Character> otherOpponent = game->GetOpponent(this);
+                if (GetHitBox().findIntersection(otherOpponent->GetHurtbox()))
+                {
+                    otherOpponent->TakeDamage();
+                }
+
                 return;
             }
             position = sf::Vector2(pictureFrame * 64, 960);
@@ -94,4 +104,24 @@ void Cat::AdjustJump()
         }
 
     }
+}
+
+/**
+ * Overriden function to retrieve the hitbox of the player. It depends on which way the character is facing
+ * @return the hitbox
+ */
+sf::FloatRect Cat::GetHurtbox()
+{
+    sf::Vector2f pos = GetPosition();
+    float width = 64;  // width of the punch range
+    float height = 140;
+
+
+    if (GetFacingDirection() == 1)
+    {
+        return sf::FloatRect(sf::Vector2(pos.x - GetSprite()->getLocalBounds().size.x / 2 - 5, pos.y + 128), sf::Vector2(width, height));
+
+    }
+    return sf::FloatRect(sf::Vector2(pos.x - GetSprite()->getLocalBounds().size.x / 2 + 10, pos.y + 128), sf::Vector2(width, height));
+
 }

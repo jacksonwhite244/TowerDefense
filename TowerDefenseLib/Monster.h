@@ -9,6 +9,7 @@
 #define MONSTER_H
 
 #include "Character.h"
+class Game;
 
 
 /**
@@ -21,9 +22,10 @@ private:
 
 public:
     Monster() = delete;
-    Monster(int playerNum);
+    Monster(int playerNum, Game* game);
     void Animate();
     void AdjustJump();
+    sf::FloatRect GetHurtbox() override;
 };
 
 

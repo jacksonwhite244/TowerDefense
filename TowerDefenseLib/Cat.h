@@ -9,6 +9,7 @@
 #define CAT_H
 
 #include "Character.h"
+#include "Game.h"
 
 /**
  * Cat character
@@ -20,10 +21,11 @@ private:
 
 public:
     Cat() = delete;
-
-    Cat(int playerNum);
+    Cat(int playerNum, Game* game);
     void Animate();
     void AdjustJump();
+
+    virtual sf::FloatRect GetHurtbox() override;
 };
 
 

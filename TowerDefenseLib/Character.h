@@ -15,11 +15,14 @@
 #include <SFML/Network.hpp>
 #include <optional>
 
+class Game;
 /**
  * Each hero that destroys enemies will be of base type character, which holds a position
  */
 class Character {
 private:
+    /// the game object the character belongs to
+    Game * mGame = nullptr;
     /// the image of the normal pirate
     sf::Sprite* mSprite = nullptr;
 
@@ -57,12 +60,9 @@ private:
     std::vector<std::shared_ptr<sf::Font>> mFonts;
 
     void CreateHealth();
-    void TakeDamage();
-    sf::FloatRect GetHurtbox() const;
-    sf::FloatRect GetHitBox() const;
 
 public:
-    Character(std::string fileName, int playerNum);
+    Character(std::string fileName, int playerNum, Game* game);
 
     void Draw(sf::RenderWindow* window);
 
@@ -96,6 +96,28 @@ public:
     sf::Vector2f GetPosition() { return mSprite->getPosition(); }
     void SetPosition(sf::Vector2f position) { mSprite->setPosition(position); }
 
+    /**
+     * Get the game the character belongs to
+     * @return a pointer to the game object
+     */
+    Game* GetGame() { return mGame; }
+
+    /**
+     * Get the area where the character can be injured
+     * @return a box representing an area where the player can be injured
+     */
+    virtual sf::FloatRect GetHurtbox() = 0;
+
+    sf::FloatRect GetHitBox() const;
+
+
+    void DrawHitboxes(sf::RenderWindow* window);
+    void DrawHurtBoxes(sf::RenderWindow* window);
+    void TakeDamage();
+
+    sf::Sprite * GetSprite() { return mSprite; }
+
+    int GetFacingDirection() { return mFacingDirection; }
 
 };
 
