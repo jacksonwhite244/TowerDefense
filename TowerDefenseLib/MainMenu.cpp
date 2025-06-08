@@ -34,25 +34,19 @@ void MainMenu::CreateText()
     mFonts.push_back(font);
 
     shared_ptr<sf::Text> text = make_shared<sf::Text>(*font);
+
     text->setString("Choose Your Fighter!");
     text->setCharacterSize(60);
     text->setFillColor(sf::Color::Black);
 
     /// set the origin + position
-    ///
     text->setOrigin(sf::Vector2f(text->getLocalBounds().size.x /2,
         text->getLocalBounds().size.y / 2));
 
     text->setPosition(sf::Vector2f(1536/2, 896/ 4));
     mTexts.push_back(text);
-    /**
-    text.setOrigin(sf::Vector2f(text.getLocalBounds().size.x /2,
-        text.getLocalBounds().size.y / 2));
 
-    text.setPosition(sf::Vector2f(window->getSize().x /2, window->getSize().y / 4));
-    window->draw(text);
-*/
-    /// press enter to play t
+    /// press enter to play
     shared_ptr<sf::Text> text2 = make_shared<sf::Text>(*font);
     text2->setString("Press Enter to Start");
     text2->setCharacterSize(40);

@@ -20,12 +20,14 @@
  */
 class Character {
 private:
-
     /// the image of the normal pirate
     sf::Sprite* mSprite = nullptr;
 
     /// the texture of the normal pirate
     sf::Texture* mTexture = nullptr;
+
+    /// the player number (either player 1 or 2)
+    int mPlayerNum;
 
     /// the frame of the gif we are on
     int mPictureFrame = 1;
@@ -45,7 +47,19 @@ private:
     /// the direction our character is facing. 1 = right, -1 = left
     int mFacingDirection;
 
+    /// the health the player has
+    int mHealth;
 
+    /// all of the text that appears for the health
+    std::vector<std::shared_ptr<sf::Text>> mTexts;
+
+    /// all of the different fonts used for text
+    std::vector<std::shared_ptr<sf::Font>> mFonts;
+
+    void CreateHealth();
+    void TakeDamage();
+    sf::FloatRect GetHurtbox() const;
+    sf::FloatRect GetHitBox() const;
 
 public:
     Character(std::string fileName, int playerNum);

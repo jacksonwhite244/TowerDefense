@@ -4,7 +4,7 @@
  */
  
 #include "Character.h"
-
+using namespace std;
 /**
  * Custom constructor for character
  * @param fileName the image pathname
@@ -17,11 +17,13 @@ Character::Character(std::string fileName, int playerNum)
     mAction = Action::Idle;
     if (playerNum == 1)
     {
+        mPlayerNum = playerNum;
         mFacingDirection = 1;
         playerFirstLocation = 0;
     }
     else
     {
+        mPlayerNum = 2;
         mFacingDirection = -1;
         playerFirstLocation = 1200;
     }
@@ -41,6 +43,9 @@ Character::Character(std::string fileName, int playerNum)
         }
         mSprite->setScale(sf::Vector2f(5 * mFacingDirection, 5));
         mSprite->setPosition(sf::Vector2f(playerFirstLocation, 515));
+
+        mHealth = 100;
+        CreateHealth();
     }
 }
 
@@ -52,6 +57,10 @@ void Character::Draw(sf::RenderWindow* window)
 {
     Animate();
     window->draw(*mSprite);
+    for (auto text : mTexts)
+    {
+        window->draw(*text);
+    }
 }
 
 /**
@@ -164,4 +173,61 @@ bool Character::ReadyToAnimate()
         return true;
     }
     return false;
+}
+
+/**
+ * Create the text for the health status
+ */
+void Character::CreateHealth()
+{
+    shared_ptr<sf::Font> font = std::make_shared<sf::Font>();
+    if (!font->openFromFile("images/Lato-Bold.ttf"))
+    {
+        /// error has occured
+        return;
+    }
+    /// add font to the vector of fonts
+    mFonts.push_back(font);
+
+    shared_ptr<sf::Text> text = make_shared<sf::Text>(*font);
+
+    text->setString(std::to_string(mHealth));
+    text->setCharacterSize(80);
+    text->setFillColor(sf::Color::White);
+    if (mPlayerNum == 1)
+    {
+        text->setPosition(sf::Vector2f(0,0));
+
+    }
+    else
+    {
+        text->setPosition(sf::Vector2f(1526 - text->getLocalBounds().size.x,0));
+    }
+    mTexts.push_back(text);
+}
+
+/**
+ * Have the player take damage
+ */
+void Character::TakeDamage()
+{
+    mHealth -= 10;
+    if (mHealth <= 0)
+    {
+        mHealth = 0;
+    }
+    mTexts.front()->setString(std::to_string(mHealth));
+}
+
+/**
+ * Get the characters box that it will take damage from the other one
+ * @return the box in which the character will take damage
+ */
+sf::FloatRect Character::GetHurtbox() const
+{
+    return mSprite->getGlobalBounds();  // start simple: the whole sprite is the hurtbox
+}
+
+sf::FloatRect Character::GetHitBox() const
+{
 }
