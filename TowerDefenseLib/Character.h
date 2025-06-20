@@ -119,6 +119,9 @@ public:
 
     int GetFacingDirection() { return mFacingDirection; }
 
+    bool IsDead() { return mHealth == 0; }
+
+    void SetHealth(int health) { mHealth = health; }
 };
 
 

@@ -31,12 +31,22 @@ private:
     /// all of the text that appears for the menu
     std::vector<std::shared_ptr<sf::Text>> mTexts;
 
+    /// all of the text that shows up for the winner
+    std::vector<std::shared_ptr<sf::Text>> mWinningText;
+
     /// all of the different fonts used for text
     std::vector<std::shared_ptr<sf::Font>> mFonts;
+
+    /// boolean turns true when the menu is showing a popup depicting the winner of the game (game over)
+    bool mShowingWinner = false;
+
+    /// timer to track how long the winner message has been showing
+    int mWinnerShowingTimer = 0;
 public:
     MainMenu();
     void Render(sf::RenderWindow* window);
     void CreateText();
+    void Winner(int playerNum);
 
     /**
      * Is the menu currently being shown?

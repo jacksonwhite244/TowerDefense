@@ -74,6 +74,7 @@ public:
     void CheckEvents();
     void CheckSwitches();
     std::shared_ptr<Character> GetOpponent(Character* character);
+    void CheckWinner();
 };
 
 

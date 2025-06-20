@@ -16,10 +16,27 @@ MainMenu::MainMenu()
  */
 void MainMenu::Render(sf::RenderWindow* window)
 {
-    for (auto text : mTexts)
+    if (mShowingWinner)
     {
-        window->draw(*text);
+        mWinnerShowingTimer ++;
+        for (auto text : mWinningText)
+        {
+            window->draw(*text);
+        }
+        if (mWinnerShowingTimer > 5000)
+        {
+            mShowingWinner = false;
+            mWinnerShowingTimer = 0;
+        }
     }
+    else
+    {
+        for (auto text : mTexts)
+        {
+            window->draw(*text);
+        }
+    }
+
 }
 
 void MainMenu::CreateText()
@@ -80,4 +97,64 @@ void MainMenu::CreateText()
     //text3.setPosition(sf::Vector2f(window->getSize().x /4, window->getSize().y / 3));
     text4->setPosition(sf::Vector2f(1350, 600));
     mTexts.push_back(text4);
+}
+
+/**
+ * A Character has won the game!
+ *
+ * Show a message depicting that the game is over and who the winner is
+ */
+void MainMenu::Winner(int playerNum)
+{
+    /// set the menu to showing and showing winner
+    if (mIsShowing and mShowingWinner)
+    {
+        return;
+    }
+    mIsShowing = true;
+    mShowingWinner = true;
+
+
+    mWinningText.clear();
+
+    shared_ptr<sf::Font> font = std::make_shared<sf::Font>();
+    if (!font->openFromFile("images/Lato-Bold.ttf"))
+    {
+        /// error has occured
+        return;
+    }
+    /// add font to the vector of fonts
+    mFonts.push_back(font);
+
+    shared_ptr<sf::Text> text = make_shared<sf::Text>(*font);
+
+    text->setString("Game Over!");
+    text->setCharacterSize(60);
+    text->setFillColor(sf::Color::Red);
+
+    /// set the origin + position
+    text->setOrigin(sf::Vector2f(text->getLocalBounds().size.x /2,
+        text->getLocalBounds().size.y / 2));
+
+    text->setPosition(sf::Vector2f(1536/2, 896/ 4));
+    mWinningText.push_back(text);
+
+    /// Select the winner
+    shared_ptr<sf::Text> text2 = make_shared<sf::Text>(*font);
+    if (playerNum == 1)
+    {
+        text2->setString("Player 1 Wins!");
+    }
+    else
+    {
+        text2->setString("Player 2 Wins!");
+
+    }
+    text2->setCharacterSize(40);
+    text2->setFillColor(sf::Color::Black);
+    text2->setOrigin(sf::Vector2f(text2->getLocalBounds().size.x /2,
+        text2->getLocalBounds().size.y / 2));
+
+    text2->setPosition(sf::Vector2f(1536 /2, 896 / 3));
+    mWinningText.push_back(text2);
 }

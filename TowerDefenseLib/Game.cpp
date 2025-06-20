@@ -94,6 +94,7 @@ void Game::CheckEvents()
         }
     }
     CheckSwitches();
+    CheckWinner();
     /// player has started the game
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Enter) && mMainMenu.IsActive())
     {
@@ -324,6 +325,11 @@ void Game::CheckSwitches()
     }
 }
 
+/**
+ * Get the opponent (other character) of a given character
+ * @param character the character that we want the opponent to
+ * @return the pointer to the oppenent
+ */
 shared_ptr<Character> Game::GetOpponent(Character* character)
 {
     if (character ==  mCharacter1.get())
@@ -331,4 +337,21 @@ shared_ptr<Character> Game::GetOpponent(Character* character)
         return mCharacter2;
     }
     return mCharacter1;
+}
+
+/**
+ * Check if either of the characters have won, if so end the game
+ */
+void Game::CheckWinner()
+{
+    if (mCharacter1->IsDead() and !mCharacter2->IsDead())
+    {
+        mCharacter1->SetHealth(100);
+        mMainMenu.Winner(2);
+    }
+    else if (!mCharacter1->IsDead() and mCharacter2->IsDead())
+    {
+        mCharacter2->SetHealth(100);
+        mMainMenu.Winner(1);
+    }
 }
