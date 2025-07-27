@@ -43,15 +43,18 @@ private:
     /// timer to track how long the winner message has been showing
     int mWinnerShowingTimer = 0;
 
-    /// the sprite of the play button
-    sf::Sprite * mPlayButtonSprite = nullptr;
+    /// list of all the sprites we need to draw for the menu (play button, up and down buttons)
+    std::vector<std::shared_ptr<sf::Sprite>> mSprites;
 
-    /// the texture of the play button
-    sf::Texture * mPlayButtonTexture = nullptr;
+    /// list of all the textures we need to draw for the menu
+    std::vector<std::shared_ptr<sf::Texture>> mTextures;
 public:
     MainMenu();
     void Render(sf::RenderWindow* window);
     void CreateText();
+
+    void CreateButtons();
+
     void Winner(int playerNum);
 
     bool HitPlay(sf::Vector2i mousePosition);

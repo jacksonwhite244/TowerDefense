@@ -92,9 +92,10 @@ void Game::CheckEvents()
             if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
                 mWindow->close();
         }
+        /// check if the plater has started the game
         else if (const auto* buttonPressed = event->getIf<sf::Event::MouseButtonReleased>())
         {
-            if (buttonPressed->button == sf::Mouse::Button::Left)
+            if (buttonPressed->button == sf::Mouse::Button::Left && mMainMenu.IsActive())
             {
                 auto mousePosition = sf::Vector2i(buttonPressed->position.x, buttonPressed->position.y);
                 if (mMainMenu.HitPlay(mousePosition))

@@ -9,6 +9,7 @@ using namespace std;
 MainMenu::MainMenu()
 {
     CreateText();
+    CreateButtons();
 }
 
 /**
@@ -35,7 +36,10 @@ void MainMenu::Render(sf::RenderWindow* window)
         {
             window->draw(*text);
         }
-        window->draw(*mPlayButtonSprite);
+        for (auto sprite : mSprites)
+        {
+            window->draw(*sprite);
+        }
     }
 
 }
@@ -63,53 +67,43 @@ void MainMenu::CreateText()
 
     text->setPosition(sf::Vector2f(1536/2, 896/ 4));
     mTexts.push_back(text);
+}
 
-    /// press enter to play
-    /**
-    shared_ptr<sf::Text> text2 = make_shared<sf::Text>(*font);
-    text2->setString("Press Enter to Start");
-    text2->setCharacterSize(40);
-    text2->setFillColor(sf::Color::Black);
-    text2->setOrigin(sf::Vector2f(text2->getLocalBounds().size.x /2,
-        text2->getLocalBounds().size.y / 2));
+void MainMenu::CreateButtons()
+{
+    shared_ptr<sf::Texture> playTexture = std::make_shared<sf::Texture>();
+    if (playTexture->loadFromFile("images/play_button.png"))
+    {
+        shared_ptr<sf::Sprite> playButtonSprite = make_shared<sf::Sprite>(*playTexture);
 
-    text2->setPosition(sf::Vector2f(1536 /2, 896 / 3));
-    mTexts.push_back(text2);
-
-*/
-    mPlayButtonTexture = new sf::Texture();
-    if (mPlayButtonTexture->loadFromFile("images/play_button.png")) {
-        mPlayButtonSprite = new sf::Sprite(*mPlayButtonTexture);
-
-        sf::FloatRect bounds = mPlayButtonSprite->getLocalBounds();
+        sf::FloatRect bounds = playButtonSprite->getLocalBounds();
         sf::Vector2f origin = sf::Vector2f(bounds.size.x / 2, bounds.size.y / 2);
-        mPlayButtonSprite->setOrigin(origin);
-        mPlayButtonSprite->setPosition(sf::Vector2f(1536 /2, 896 / 2.5));
+        playButtonSprite->setOrigin(origin);
+        playButtonSprite->setPosition(sf::Vector2f(1536 /2, 896 / 2.5));
+        mSprites.push_back(playButtonSprite);
+        mTextures.push_back(playTexture);
     }
 
-    /// press w/s to switch character 1
-    shared_ptr<sf::Text> text3 = make_shared<sf::Text>(*font);
-    text3->setString("Use w/s to switch character 1");
-    text3->setCharacterSize(20);
-    text3->setFillColor(sf::Color::Black);
-    text3->setOrigin(sf::Vector2f(text3->getLocalBounds().size.x /2,
-        text3->getLocalBounds().size.y / 2));
+    shared_ptr<sf::Texture> upArrowTexture = std::make_shared<sf::Texture>();
+    if (upArrowTexture->loadFromFile("images/up_button.png"))
+    {
+        shared_ptr<sf::Sprite> upArrowPlayer1Sprite = make_shared<sf::Sprite>(*upArrowTexture);
+        shared_ptr<sf::Sprite> upArrowPlayer2Sprite = make_shared<sf::Sprite>(*upArrowTexture);
 
-    //text3.setPosition(sf::Vector2f(window->getSize().x /4, window->getSize().y / 3));
-    text3->setPosition(sf::Vector2f(150, 600));
-    mTexts.push_back(text3);
+        sf::FloatRect bounds = upArrowPlayer1Sprite->getLocalBounds();
+        sf::Vector2f origin = sf::Vector2f(bounds.size.x / 2, bounds.size.y / 2);
+        upArrowPlayer1Sprite->setOrigin(origin);
+        upArrowPlayer1Sprite->setPosition(sf::Vector2f(150, 600));
+        upArrowPlayer1Sprite->setScale(sf::Vector2f(0.25, 0.25));
 
-    /// press up/down to switch character 2
-    shared_ptr<sf::Text> text4 = make_shared<sf::Text>(*font);
-    text4->setString("Use w/s to switch character 1");
-    text4->setCharacterSize(20);
-    text4->setFillColor(sf::Color::Black);
-    text4->setOrigin(sf::Vector2f(text3->getLocalBounds().size.x /2,
-        text4->getLocalBounds().size.y / 2));
+        upArrowPlayer2Sprite->setOrigin(origin);
+        upArrowPlayer2Sprite->setPosition(sf::Vector2f(1365, 600));
+        upArrowPlayer2Sprite->setScale(sf::Vector2f(0.25, 0.25));
 
-    //text3.setPosition(sf::Vector2f(window->getSize().x /4, window->getSize().y / 3));
-    text4->setPosition(sf::Vector2f(1350, 600));
-    mTexts.push_back(text4);
+        mSprites.push_back(upArrowPlayer1Sprite);
+        mSprites.push_back(upArrowPlayer2Sprite);
+        mTextures.push_back(upArrowTexture);
+    }
 }
 
 /**
@@ -184,16 +178,12 @@ bool MainMenu::HitPlay(sf::Vector2i mousePosition)
         return false;
     }
 
-    sf::FloatRect bounds = mPlayButtonSprite->getLocalBounds();
-    sf::Vector2f playPosition = mPlayButtonSprite->getPosition();
+    auto playButtonSprite = mSprites[0];
+    sf::FloatRect bounds = playButtonSprite->getLocalBounds();
+    sf::Vector2f playPosition = playButtonSprite->getPosition();
 
     auto mouseX = mousePosition.x;
     auto mouseY = mousePosition.y;
-
-    auto lowX = playPosition.x - bounds.size.x / 2;
-    auto highX = playPosition.x + bounds.size.x / 2;
-    auto lowY = playPosition.y - bounds.size.y / 2;
-    auto highY = playPosition.y + bounds.size.y / 2;
 
     if ((playPosition.x - bounds.size.x / 2) <= mouseX &&
         (playPosition.x + bounds.size.x / 2) >= mouseX &&
