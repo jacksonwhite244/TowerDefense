@@ -92,6 +92,17 @@ void Game::CheckEvents()
             if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
                 mWindow->close();
         }
+        else if (const auto* buttonPressed = event->getIf<sf::Event::MouseButtonReleased>())
+        {
+            if (buttonPressed->button == sf::Mouse::Button::Left)
+            {
+                auto mousePosition = sf::Vector2i(buttonPressed->position.x, buttonPressed->position.y);
+                if (mMainMenu.HitPlay(mousePosition))
+                {
+                    mMainMenu.SetInactive();
+                }
+            }
+        }
     }
     CheckSwitches();
     CheckWinner();
@@ -101,6 +112,7 @@ void Game::CheckEvents()
         mMainMenu.SetInactive();
     }
 
+    /// player 1 switches character
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::W) && mMainMenu.IsActive())
     {
         if (mChar1SwitchTime == 0)
@@ -197,14 +209,14 @@ void Game::CheckEvents()
     }
 
     /// move right and punch
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Numpad0))
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::RShift))
     {
         mCharacter2->Punch();
         mCharacter2->MoveRight();
     }
 
     /// move left and punch
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Numpad0))
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::RShift))
     {
         mCharacter2->Punch();
         mCharacter2->MoveLeft();
@@ -229,7 +241,7 @@ void Game::CheckEvents()
     }
 
     /// punch
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Numpad0))
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::RShift))
     {
         mCharacter2->Punch();
     }
@@ -308,7 +320,7 @@ void Game::CheckSwitches()
     if (mChar1Switching)
     {
         mChar1SwitchTime ++;
-        if (mChar1SwitchTime > 160)
+        if (mChar1SwitchTime > 880)
         {
             mChar1Switching = false;
             mChar1SwitchTime = 0;
@@ -317,7 +329,7 @@ void Game::CheckSwitches()
     if (mChar2Switching)
     {
         mChar2SwitchTime ++;
-        if (mChar2SwitchTime > 160)
+        if (mChar2SwitchTime > 880)
         {
             mChar2Switching = false;
             mChar2SwitchTime = 0;

@@ -88,11 +88,11 @@ void Cat::AdjustJump()
             auto position = GetPosition();
             if (pictureFrame == 3)
             {
-                SetPosition(position - sf::Vector2f(0, 1));
+                SetPosition(position - sf::Vector2f(0, .5));
             }
             if (pictureFrame == 4)
             {
-                SetPosition(position + sf::Vector2f(0, 1));
+                SetPosition(position + sf::Vector2f(0, .5));
             }
 
             if (pictureFrame == 7)

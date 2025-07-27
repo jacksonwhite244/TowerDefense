@@ -90,7 +90,7 @@ void Character::MoveRight()
     }
     mSprite->setScale(sf::Vector2f(5 * mFacingDirection, 5));
 
-    mSprite->setPosition(position + sf::Vector2f(0.3, 0));
+    mSprite->setPosition(position + sf::Vector2f(0.05, 0));
 }
 
 /**
@@ -117,7 +117,7 @@ void Character::MoveLeft()
     mSprite->setScale(sf::Vector2f(5 * mFacingDirection, 5));
 
     sf::FloatRect bounds = mSprite->getLocalBounds();
-    mSprite->setPosition(position - sf::Vector2f(0.3, 0));
+    mSprite->setPosition(position - sf::Vector2f(0.05, 0));
 }
 
 /**
@@ -168,7 +168,7 @@ bool Character::ReadyToAnimate()
 {
     mTimesCalled++;
     AdjustJump();
-    if (mTimesCalled == 120)
+    if (mTimesCalled == 480)
     {
         return true;
     }

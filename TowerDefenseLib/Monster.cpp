@@ -85,11 +85,11 @@ void Monster::AdjustJump()
             auto position = GetPosition();
             if (pictureFrame == 5)
             {
-                SetPosition(position - sf::Vector2f(0, 1));
+                SetPosition(position - sf::Vector2f(0, .19));
             }
             if (pictureFrame == 6)
             {
-                SetPosition(position + sf::Vector2f(0, 1));
+                SetPosition(position + sf::Vector2f(0, .19));
             }
             if (pictureFrame == 7)
             {

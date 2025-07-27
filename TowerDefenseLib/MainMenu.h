@@ -42,11 +42,19 @@ private:
 
     /// timer to track how long the winner message has been showing
     int mWinnerShowingTimer = 0;
+
+    /// the sprite of the play button
+    sf::Sprite * mPlayButtonSprite = nullptr;
+
+    /// the texture of the play button
+    sf::Texture * mPlayButtonTexture = nullptr;
 public:
     MainMenu();
     void Render(sf::RenderWindow* window);
     void CreateText();
     void Winner(int playerNum);
+
+    bool HitPlay(sf::Vector2i mousePosition);
 
     /**
      * Is the menu currently being shown?

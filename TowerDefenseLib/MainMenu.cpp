@@ -35,6 +35,7 @@ void MainMenu::Render(sf::RenderWindow* window)
         {
             window->draw(*text);
         }
+        window->draw(*mPlayButtonSprite);
     }
 
 }
@@ -64,6 +65,7 @@ void MainMenu::CreateText()
     mTexts.push_back(text);
 
     /// press enter to play
+    /**
     shared_ptr<sf::Text> text2 = make_shared<sf::Text>(*font);
     text2->setString("Press Enter to Start");
     text2->setCharacterSize(40);
@@ -73,6 +75,17 @@ void MainMenu::CreateText()
 
     text2->setPosition(sf::Vector2f(1536 /2, 896 / 3));
     mTexts.push_back(text2);
+
+*/
+    mPlayButtonTexture = new sf::Texture();
+    if (mPlayButtonTexture->loadFromFile("images/play_button.png")) {
+        mPlayButtonSprite = new sf::Sprite(*mPlayButtonTexture);
+
+        sf::FloatRect bounds = mPlayButtonSprite->getLocalBounds();
+        sf::Vector2f origin = sf::Vector2f(bounds.size.x / 2, bounds.size.y / 2);
+        mPlayButtonSprite->setOrigin(origin);
+        mPlayButtonSprite->setPosition(sf::Vector2f(1536 /2, 896 / 2.5));
+    }
 
     /// press w/s to switch character 1
     shared_ptr<sf::Text> text3 = make_shared<sf::Text>(*font);
@@ -157,4 +170,38 @@ void MainMenu::Winner(int playerNum)
 
     text2->setPosition(sf::Vector2f(1536 /2, 896 / 3));
     mWinningText.push_back(text2);
+}
+
+/**
+ *
+ * @param mousePosition the posiiton of the mouse
+ * @return true if the user clicked the play button, false if not
+ */
+bool MainMenu::HitPlay(sf::Vector2i mousePosition)
+{
+    if (not IsActive())
+    {
+        return false;
+    }
+
+    sf::FloatRect bounds = mPlayButtonSprite->getLocalBounds();
+    sf::Vector2f playPosition = mPlayButtonSprite->getPosition();
+
+    auto mouseX = mousePosition.x;
+    auto mouseY = mousePosition.y;
+
+    auto lowX = playPosition.x - bounds.size.x / 2;
+    auto highX = playPosition.x + bounds.size.x / 2;
+    auto lowY = playPosition.y - bounds.size.y / 2;
+    auto highY = playPosition.y + bounds.size.y / 2;
+
+    if ((playPosition.x - bounds.size.x / 2) <= mouseX &&
+        (playPosition.x + bounds.size.x / 2) >= mouseX &&
+        (playPosition.y - bounds.size.y / 2) <= mouseY &&
+        (playPosition.y + bounds.size.y / 2) >= mouseY)
+        {
+            return true;
+        }
+    return false;
+
 }
