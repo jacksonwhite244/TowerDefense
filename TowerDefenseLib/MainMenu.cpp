@@ -104,8 +104,94 @@ void MainMenu::CreateButtons()
         mSprites.push_back(upArrowPlayer2Sprite);
         mTextures.push_back(upArrowTexture);
     }
+
+    shared_ptr<sf::Texture> downArrowTexture = std::make_shared<sf::Texture>();
+    if (downArrowTexture->loadFromFile("images/down_button.png"))
+    {
+        shared_ptr<sf::Sprite> downArrowPlayer1Sprite = make_shared<sf::Sprite>(*downArrowTexture);
+        shared_ptr<sf::Sprite> downArrowPlayer2Sprite = make_shared<sf::Sprite>(*downArrowTexture);
+
+        sf::FloatRect bounds = downArrowPlayer1Sprite->getLocalBounds();
+        sf::Vector2f origin = sf::Vector2f(bounds.size.x / 2, bounds.size.y / 2);
+        downArrowPlayer1Sprite->setOrigin(origin);
+        downArrowPlayer1Sprite->setPosition(sf::Vector2f(150, 830));
+        downArrowPlayer1Sprite->setScale(sf::Vector2f(0.25, 0.25));
+
+        downArrowPlayer2Sprite->setOrigin(origin);
+        downArrowPlayer2Sprite->setPosition(sf::Vector2f(1365, 830));
+        downArrowPlayer2Sprite->setScale(sf::Vector2f(0.25, 0.25));
+
+        mSprites.push_back(downArrowPlayer1Sprite);
+        mSprites.push_back(downArrowPlayer2Sprite);
+        mTextures.push_back(downArrowTexture);
+    }
 }
 
+
+/**
+ * Check if the user clicked the arrow to change characters
+ *
+ * @param mousePosition the position of the click
+ * @return true if the user clicked the player one change character
+ */
+bool MainMenu::ChangeFirst(sf::Vector2i mousePosition)
+{
+    auto upArrow = mSprites[1];
+    auto downArrow = mSprites[3];
+
+    sf::FloatRect bounds = upArrow->getLocalBounds();
+    sf::Vector2f upPosition = upArrow->getPosition();
+    sf::Vector2f downPosition = downArrow->getPosition();
+
+    auto mouseX = mousePosition.x;
+    auto mouseY = mousePosition.y;
+
+    if (((upPosition.x - bounds.size.x / 2) <= mouseX &&
+        (upPosition.x + bounds.size.x / 2) >= mouseX &&
+        (upPosition.y - bounds.size.y / 2) <= mouseY &&
+        (upPosition.y + bounds.size.y / 2) >= mouseY) ||
+        ((downPosition.x - bounds.size.x / 2) <= mouseX &&
+        (downPosition.x + bounds.size.x / 2) >= mouseX &&
+        (downPosition.y - bounds.size.y / 2) <= mouseY &&
+        (downPosition.y + bounds.size.y / 2) >= mouseY))
+    {
+        return true;
+    }
+    return false;
+}
+
+/**
+ * Check if the user wants to change the second players character
+ *
+ * @param mousePosition the position of the click
+ * @return true if the user clicked on the player 2 change character arrows
+ */
+bool MainMenu::ChangeSecond(sf::Vector2i mousePosition)
+{
+    auto upArrow = mSprites[2];
+    auto downArrow = mSprites[4];
+
+    sf::FloatRect bounds = upArrow->getLocalBounds();
+    sf::Vector2f upPosition = upArrow->getPosition();
+    sf::Vector2f downPosition = downArrow->getPosition();
+
+    auto mouseX = mousePosition.x;
+    auto mouseY = mousePosition.y;
+
+    if (((upPosition.x - bounds.size.x / 2) <= mouseX &&
+        (upPosition.x + bounds.size.x / 2) >= mouseX &&
+        (upPosition.y - bounds.size.y / 2) <= mouseY &&
+        (upPosition.y + bounds.size.y / 2) >= mouseY) ||
+        ((downPosition.x - bounds.size.x / 2) <= mouseX &&
+        (downPosition.x + bounds.size.x / 2) >= mouseX &&
+        (downPosition.y - bounds.size.y / 2) <= mouseY &&
+        (downPosition.y + bounds.size.y / 2) >= mouseY))
+    {
+        return true;
+    }
+    return false;
+
+}
 /**
  * A Character has won the game!
  *

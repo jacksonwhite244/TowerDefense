@@ -45,19 +45,6 @@ private:
 
     /// the main menu
     MainMenu mMainMenu;
-
-    /// character 1 switch time counter
-    int mChar1SwitchTime = 0;
-
-    /// is the character1 currently switching
-    bool mChar1Switching = false;
-
-    /// character2 switch time counter
-    int mChar2SwitchTime = 0;
-
-    /// is the character 2 currently switching
-    bool mChar2Switching = false;
-
 public:
     /// constructor
     Game();

@@ -55,6 +55,10 @@ public:
 
     void CreateButtons();
 
+    bool ChangeFirst(sf::Vector2i mousePosition);
+
+    bool ChangeSecond(sf::Vector2i mousePosition);
+
     void Winner(int playerNum);
 
     bool HitPlay(sf::Vector2i mousePosition);
